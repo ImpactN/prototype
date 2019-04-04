@@ -5,7 +5,6 @@ import InfiniteCarousel from 'react-leaf-carousel';
 class Carousel extends React.Component {
     render() {
         const { elements, perPage } = this.props;
-        console.log(this.props);
 
         return <InfiniteCarousel
             breakpoints={[

@@ -23,7 +23,8 @@ import Home from './routes/Home/Home';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
-
+import { logIn } from './services/Auth.service';
+// import { userApi } from './services/Api.service';
 
 const styles = {
   root: {
@@ -49,6 +50,20 @@ const styles = {
 };
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      contact: null
+    }
+  }
+
+  login = () => {
+    logIn({ name: 1 }).then(user => {
+      this.setState({ user });
+    })
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -74,13 +89,13 @@ class App extends Component {
 
           <div className={classes.body}>
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/contact" exact component={Contact} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/signup" exact component={Signup} />
-              <Route path="/sponsor" exact component={Sponsor} />
-              <Route path="/impressum" exact component={Impressum} />
-              <Route path="/gdpr" exact component={Gdpr} />
+              <Route path="/" exact component={() => <Home {...this.state.user} />} />
+              <Route path="/contact" exact component={() => <Contact {...this.state.contact} />} />
+              <Route path="/login" exact component={() => <Login {...this.state} />} />
+              <Route path="/signup" exact component={() => <Signup {...this.state} />} />
+              <Route path="/sponsor" exact component={() => <Sponsor {...this.state} />} />
+              <Route path="/impressum" exact component={() => <Impressum {...this.state} />} />
+              <Route path="/gdpr" exact component={() => <Gdpr {...this.state} />} />
 
               <Route component={NoMatch} />
             </Switch>

@@ -57,6 +57,7 @@ const styles = {
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
 
         };
@@ -300,7 +301,7 @@ class Home extends React.Component {
                         </div>
                     </Grid>
 
-                    
+
                 </Grid>
             </div>
         );
