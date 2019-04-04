@@ -27,6 +27,12 @@ import { logIn } from './services/Auth.service';
 // import { userApi } from './services/Api.service';
 
 const styles = {
+  app: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100vh'
+  },
   root: {
     flexGrow: 1,
   },
@@ -68,7 +74,7 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.app}>
         <Router>
           <AppBar position="fixed" className={classes.bar}>
             <Toolbar>
