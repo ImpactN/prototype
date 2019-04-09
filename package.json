@@ -12,6 +12,7 @@
     "react-leaf-carousel": "^1.2.2",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-swipeable-views": "^0.13.1",
     "recompose": "^0.30.0",
     "styled-components": "^4.1.3"
   },

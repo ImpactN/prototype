@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Carousel from '../../common/Carousel';
+import { Link } from "react-router-dom";
 
 const styles = {
     root: {
@@ -206,7 +207,7 @@ class Home extends React.Component {
                             <Grid container direction="row">
                                 <Grid container item xs={4} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeProject}>
-                                        <h3>Project 1</h3>
+                                        <Link to={`/projects/${1}`} className={classes.link}><h3>Project 1</h3></Link>
                                         {/* <img src="1" alt="image" /> */}
                                         <p>
                                             Some explanation
@@ -216,7 +217,7 @@ class Home extends React.Component {
 
                                 <Grid container item xs={4} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeProject}>
-                                        <h3>Project 2</h3>
+                                        <Link to={`/projects/${2}`} className={classes.link}><h3>Project 2</h3></Link>
                                         {/* <img src="1" alt="image" /> */}
                                         <p>
                                             Some explanation
@@ -226,7 +227,7 @@ class Home extends React.Component {
 
                                 <Grid container item xs={4} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeProject}>
-                                        <h3>Project 3</h3>
+                                        <Link to={`/projects/${3}`} className={classes.link}><h3>Project 3</h3></Link>
                                         {/* <img src="1" alt="image" /> */}
                                         <p>
                                             Some explanation
