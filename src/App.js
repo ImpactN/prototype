@@ -19,12 +19,13 @@ import { Contact } from './routes/Contact/Contact';
 import { Login } from './routes/Login/Login';
 import { Signup } from './routes/Signup/Signup';
 import { Sponsor } from './routes/Sponsor/Sponsor';
+import Project from './routes/Project/Project';
 import Home from './routes/Home/Home';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
-import { logIn } from './services/Auth.service';
-// import { userApi } from './services/Api.service';
+// import { logIn } from './services/Auth.service';
+import { projectsApi } from './services/Api.service';
 
 const styles = {
   app: {
@@ -60,14 +61,18 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
-      contact: null
+      projects: []
     }
   }
 
-  login = () => {
-    logIn({ name: 1 }).then(user => {
-      this.setState({ user });
+  componentDidMount() {
+    projectsApi.getProjects().then(projects => {
+      this.setState({ projects });
     })
+  }
+
+  updateState = (state) => {
+    this.setState(state);
   }
 
   render() {
@@ -95,13 +100,14 @@ class App extends Component {
 
           <div className={classes.body}>
             <Switch>
-              <Route path="/" exact component={() => <Home {...this.state.user} />} />
-              <Route path="/contact" exact component={() => <Contact {...this.state.contact} />} />
-              <Route path="/login" exact component={() => <Login {...this.state} />} />
-              <Route path="/signup" exact component={() => <Signup {...this.state} />} />
-              <Route path="/sponsor" exact component={() => <Sponsor {...this.state} />} />
-              <Route path="/impressum" exact component={() => <Impressum {...this.state} />} />
-              <Route path="/gdpr" exact component={() => <Gdpr {...this.state} />} />
+              <Route path="/" exact component={() => <Home {...this.state} update={this.updateState} />} />
+              <Route path="/contact" exact component={() => <Contact {...this.state} update={this.updateState} />} />
+              <Route path="/login" exact component={() => <Login {...this.state} update={this.updateState} />} />
+              <Route path="/signup" exact component={() => <Signup {...this.state} update={this.updateState} />} />
+              <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} />
+              <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
+              <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
+              <Route path="/projects/:id" exact component={(route) => <Project {...this.state} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />
             </Switch>
