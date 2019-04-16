@@ -11,24 +11,23 @@ const api = sc2.Initialize ({
   scope: ['vote', 'comment', 'offline', 'custom_json'],
 });
 // get login URL
-export const loginURL = api.getLoginURL ();
+export const loginURL = api.getLoginURL();
 
 // acquire access_token and username after authorization
-let access_token = new URLSearchParams (document.location.search).get (
+const access_token = new URLSearchParams(document.location.search).get(
   'access_token'
 );
-let username = new URLSearchParams (document.location.search).get (
+const username = new URLSearchParams(document.location.search).get(
   'username'
 );
 
-access_token &&
-  localStorage.setItem('steem_ac', access_token);
-username && localStorage.setItem ('steem_user', username);
+if (access_token) {
+    localStorage.setItem('steem_ac', JSON.stringify(access_token));
+    localStorage.setItem('steem_user', JSON.stringify(username));
+}
 
-export const steem_ac = access_token
-  ? null : localStorage.getItem ('steem_ac')
-export const steem_user = username
-  ? null : localStorage.getItem ('steem_user')
+export const steem_ac = JSON.parse(localStorage.getItem('steem_ac'));
+export const steem_user = JSON.parse(localStorage.getItem('steem_user'));
 
 const filter = 'blog';
 const query = {
@@ -37,19 +36,26 @@ const query = {
 };
 
 export const isLoggedIn = steem_ac && steem_user;
-console.log(isLoggedIn);
 
-export const logOut = () =>
-  api.revokeToken (function (err, res) {
-    if (res && res.success) {
-      access_token = null;
-      document.location.href = '/';
+export const logOut = () => {
+    if (steem_ac) {
+        api.setAccessToken(steem_ac);
+        api.revokeToken(function (err, res) {
+            if (res && res.success) {
+              localStorage.setItem('steem_ac', null);
+              localStorage.setItem('steem_user', null);
+              document.location.href = '/';
+            }
+          });
     }
-  });
+}
 
-  export const getLoggedUserInfo = () => {
-      return api.me();
-  }
+export const getLoggedUserInfo = () => {
+    if (steem_ac) {
+        api.setAccessToken(steem_ac);
+        return api.me().then(info => info);
+    }
+}
 
 export const getProjects = () => {
   return client.database.getDiscussions(filter, query).then (result => {
@@ -61,17 +67,27 @@ export const getProjectDetails = (permlink) => {
     return client.database.call('get_content', [query.tag, permlink]);
 }
 
-// export const voteOnPost = (permlink, weight) => {
-//         //create vote object
-//         const vote = {
-//             voter: steem_user,
-//             author: query.tag,
-//             permlink,
-//             weight, //needs to be an integer for the vote function
-//         };
-    
-//         //broadcast the vote
-//         client.broadcast.vote(vote)
-// }
+export const getProjectComments = (permlink) => {
+    return client.database.call('get_content_replies', [query.tag, permlink]);
+}
+
+export const voteOnPost = (permlink) => {
+        api.setAccessToken(steem_ac);
+        const weight = 10000;
+        return api.vote(steem_user, query.tag, permlink, weight).then(data => {
+            return data;
+        })
+}
+
+export const commentOnPost = (projectPermlink, title, body) => {
+    api.setAccessToken(steem_ac);
+    return getLoggedUserInfo().then(info => {
+        const json_metadata = info.account.json_metadata;
+        const permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+        return api.comment(query.tag, projectPermlink, steem_user, permlink, title, body, json_metadata).then(data => {
+            return data;
+        })
+    })
+}
 
 export default api;
