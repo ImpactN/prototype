@@ -19,7 +19,7 @@ export function Login () {
 //   getProjectComments('spread-goood').then(res => console.log(res));
     // getLoggedUserInfo().then(res => console.log(res));
     // voteOnPost('spread-goood', 100);
-    commentOnPost('spread-goood', 'test', 'test');
+    // commentOnPost('spread-goood', 'test', 'test');
   return (
     <div>
       {!isLoggedIn && <a href={loginURL}>Login</a>}
