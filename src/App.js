@@ -24,8 +24,7 @@ import Home from './routes/Home/Home';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
-// import { logIn } from './services/Auth.service';
-import { projectsApi } from './services/Api.service';
+import { getProjects, getProjectComments } from './services/SteemApi';
 
 const styles = {
   app: {
@@ -61,18 +60,36 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
-      projects: []
+      projects: [],
+      currentProject: null
     }
   }
 
   componentDidMount() {
-    projectsApi.getProjects().then(projects => {
+    getProjects().then(projects => {
       this.setState({ projects });
     })
   }
 
   updateState = (state) => {
+    console.log('state', state)
     this.setState(state);
+  }
+
+  getCurrentProject = (projectId) => {
+    if (this.state.projects.length > 0) {
+      const proj = this.state.projects.find(proj => proj.post_id === +projectId);
+      getProjectComments(proj.permlink).then(comments => {
+        this.setState({
+          currentProject: proj,
+          comments
+        });
+      })
+    } else {
+      getProjects().then(projects => {
+        this.setState({ projects });
+      })
+    }
   }
 
   render() {
@@ -107,7 +124,7 @@ class App extends Component {
               <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} />
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
               <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
-              <Route path="/projects/:id" exact component={(route) => <Project {...this.state} update={this.updateState} id={route.match.params.id} />} />
+              <Route path="/projects/:id" exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />
             </Switch>

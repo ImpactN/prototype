@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Carousel from '../../common/Carousel';
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 const styles = {
     root: {
@@ -49,6 +50,8 @@ const styles = {
         padding: 25,
         paddingTop: 5,
         boxSizing: 'border-box',
+        height: 400,
+        overflow: 'hidden'
     },
     centeredButton: {
         marginTop: 50
@@ -58,10 +61,6 @@ const styles = {
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
-        this.state = {
-
-        };
     }
 
     render() {
@@ -74,6 +73,10 @@ class Home extends React.Component {
             { title: '#5', text: 'Some5' },
             { title: '#6', text: 'Some6' },
         ];
+
+        const bodyMore = (body) => {
+            return body.substring(0, 400) + '...';
+        };
 
         return (
             <div className={classes.root}>
@@ -205,35 +208,16 @@ class Home extends React.Component {
                             </h3>
 
                             <Grid container direction="row">
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeProject}>
-                                        <Link to={`/projects/${1}`} className={classes.link}><h3>Project 1</h3></Link>
-                                        {/* <img src="1" alt="image" /> */}
-                                        <p>
-                                            Some explanation
-                                        </p>
-                                    </div>
-                                </Grid>
-
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeProject}>
-                                        <Link to={`/projects/${2}`} className={classes.link}><h3>Project 2</h3></Link>
-                                        {/* <img src="1" alt="image" /> */}
-                                        <p>
-                                            Some explanation
-                                        </p>
-                                    </div>
-                                </Grid>
-
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeProject}>
-                                        <Link to={`/projects/${3}`} className={classes.link}><h3>Project 3</h3></Link>
-                                        {/* <img src="1" alt="image" /> */}
-                                        <p>
-                                            Some explanation
-                                        </p>
-                                    </div>
-                                </Grid>
+                                {this.props.projects.length > 0 &&
+                                    this.props.projects.map(proj => {
+                                        return <Grid container item xs={4} key={proj.post_id} justify="center" alignItems="center" direction="column">
+                                            <div className={classes.homeProject} id={'markdown'}>
+                                                <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3>{proj.title}</h3></Link>
+                                                <ReactMarkdown source={bodyMore(proj.body)} escapeHtml={true} />
+                                            </div>
+                                        </Grid>
+                                    })
+                                }
                             </Grid>
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column">

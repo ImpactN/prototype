@@ -7,6 +7,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import ReactMarkdown from "react-markdown";
 
 const styles = {
     root: {
@@ -27,6 +28,16 @@ const styles = {
     centeredButton: {
         marginTop: 50
     },
+    homeProject: {
+        border: '1px solid #000000',
+        width: '80%',
+        margin: '75px 25px 0 25px',
+        padding: 25,
+        paddingTop: 5,
+        boxSizing: 'border-box',
+        height: 400,
+        overflow: 'hidden'
+    },
 };
 
 function TabContainer({ children, dir }) {
@@ -40,7 +51,6 @@ function TabContainer({ children, dir }) {
 class Project extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
 
         this.state = {
             tabValue: 0
@@ -48,97 +58,124 @@ class Project extends React.Component {
     }
 
     handleChange = (event, value) => {
-        console.log(value);
         this.setState({ tabValue: value });
     };
 
     handleChangeIndex = index => {
-        console.log(index);
         this.setState({ tabValue: index });
     };
 
     render() {
         const { classes } = this.props;
+        let voters = [];
 
-        return (
-            <div className={classes.root}>
-                <Grid container direction="column">
-                    <Grid item xs={12}>
-                        <div className={classes.navBtnBlock}>
-                            <Grid container direction="row">
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <Link to="/discover" className={classes.link}>
-                                        <Button variant="contained" size="large" className={classes.centeredButton}>
-                                            Discover
+        if (!this.props.currentProject || (this.props.currentProject && this.props.currentProject.post_id !== +this.props.id)) {
+            this.props.getCurrentProject(this.props.id);
+
+            return <p>Loading project...</p>
+        } else {
+            const comments = this.props.comments.reverse();
+            const allVoters = this.props.currentProject.active_votes.reverse().filter(vote => vote.voter);
+            allVoters.forEach(voter => !voters.includes(voter) && voters.push(voter));
+
+            return (
+                <div className={classes.root}>
+                    <Grid container direction="column">
+                        <Grid item xs={12}>
+                            <div className={classes.navBtnBlock}>
+                                <Grid container direction="row">
+                                    {/* <Grid container item xs={4} justify="center" alignItems="center" direction="column">
+                                        <Link to="/discover" className={classes.link}>
+                                            <Button variant="contained" size="large" className={classes.centeredButton}>
+                                                Discover
+                                            </Button>
+                                        </Link>
+                                    </Grid>
+
+                                    <Grid container item xs={4} justify="center" alignItems="center" direction="column">
+                                        <Link to="/discover" className={classes.link}>
+                                            <Button variant="contained" size="large" className={classes.centeredButton}>
+                                                Start a project
+                                            </Button>
+                                        </Link>
+                                    </Grid>
+
+                                    <Grid container item xs={4} justify="center" alignItems="center" direction="column">
+                                        <Button disabled variant="contained" size="large" className={classes.centeredButton}>
+                                            Search
                                         </Button>
-                                    </Link>
+                                    </Grid> */}
                                 </Grid>
+                            </div>
+                        </Grid>
 
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <Link to="/discover" className={classes.link}>
-                                        <Button variant="contained" size="large" className={classes.centeredButton}>
-                                            Start a project
-                                        </Button>
-                                    </Link>
-                                </Grid>
+                        <Grid item xs={12}>
+                            <div className={classes.block}>
+                                <h3 className={classes.title}>
+                                    {this.props.currentProject.title}
+                                </h3>
 
-                                <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                    <Button disabled variant="contained" size="large" className={classes.centeredButton}>
-                                        Search
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </div>
+                                <div>
+                                    <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} />
+                                </div>
+                            </div>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <div className={classes.block}>
+                                <Tabs
+                                    value={this.state.tabValue}
+                                    onChange={this.handleChange}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    variant="fullWidth"
+                                >
+                                    <Tab label="Updates" />
+                                    <Tab label="Co-creators" />
+                                    <Tab label="Backers" />
+                                </Tabs>
+
+                                <SwipeableViews
+                                    axis={'x'}
+                                    index={this.state.tabValue}
+                                    onChangeIndex={this.handleChangeIndex}
+                                >
+                                    <TabContainer dir={'ltr'}>
+                                        {
+                                            comments.map((cm, i) => {
+                                                return <div key={`${i}_${cm.author}`}>
+                                                    <h4>Author: {cm.author}</h4>
+                                                    <div id={'markdown'}>
+                                                        <ReactMarkdown source={cm.body} escapeHtml={true} />
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            })
+                                        }
+                                    </TabContainer>
+
+                                    <TabContainer dir={'ltr'}>
+                                        {
+                                            comments.map((cm, i, arr) => {
+                                                return <b key={`${i}_${cm.author}`}>{cm.author}{i === arr.length - 1 ? '' : ', '}<br /></b>
+                                            })
+                                        }
+                                    </TabContainer>
+
+                                    <TabContainer dir={'ltr'}>
+                                        {
+                                            voters.map((vote, i, arr) => {
+                                                return <b key={`${i}_${vote.voter}`}>{vote.voter}{i === arr.length - 1 ? '' : ', '}<br /></b>
+                                            })
+                                        }
+                                    </TabContainer>
+                                </SwipeableViews>
+                            </div>
+                        </Grid>
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                Mission & Vision
-                            </h3>
-
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                        </div>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <Tabs
-                                value={this.state.tabValue}
-                                onChange={this.handleChange}
-                                indicatorColor="primary"
-                                textColor="primary"
-                                variant="fullWidth"
-                            >
-                                <Tab label="Story" />
-                                <Tab label="Updates" />
-                                <Tab label="Co-creators" />
-                                <Tab label="Backers" />
-                            </Tabs>
-
-                            <SwipeableViews
-                                axis={'x'}
-                                index={this.state.tabValue}
-                                onChangeIndex={this.handleChangeIndex}
-                            >
-                                <TabContainer dir={'ltr'}>Story</TabContainer>
-                                <TabContainer dir={'ltr'}>Updates</TabContainer>
-                                <TabContainer dir={'ltr'}>Co-creators</TabContainer>
-                                <TabContainer dir={'ltr'}>Backers</TabContainer>
-                            </SwipeableViews>
-                        </div>
-                    </Grid>
-                </Grid>
-            </div>
-        );
+                </div>
+            );
+        }
     }
 }
 
