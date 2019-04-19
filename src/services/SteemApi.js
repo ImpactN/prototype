@@ -72,11 +72,11 @@ export const getProjectComments = (permlink) => {
 }
 
 export const voteOnPost = (permlink) => {
-        api.setAccessToken(steem_ac);
-        const weight = 10000;
-        return api.vote(steem_user, query.tag, permlink, weight).then(data => {
-            return data;
-        })
+    api.setAccessToken(steem_ac);
+    const weight = 10000;
+    return api.vote(steem_user, query.tag, permlink, weight).then(data => {
+        return data;
+    })
 }
 
 export const commentOnPost = (projectPermlink, title, body) => {
@@ -88,6 +88,13 @@ export const commentOnPost = (projectPermlink, title, body) => {
             return data;
         })
     })
+}
+
+export const deleteCommentOnPost = (permlink) => {
+  api.setAccessToken(steem_ac);
+  return api.deleteComment(steem_user, permlink).then(data => {
+    return data;
+  })
 }
 
 export default api;

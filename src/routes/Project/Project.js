@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from "react-markdown";
+import { voteOnPost, commentOnPost, deleteCommentOnPost, steem_user } from '../../services/SteemApi';
 
 const styles = {
     root: {
@@ -53,7 +54,9 @@ class Project extends React.Component {
         super(props);
 
         this.state = {
-            tabValue: 0
+            tabValue: 0,
+            comment: '',
+            isActionLoading: false
         };
     }
 
@@ -65,6 +68,42 @@ class Project extends React.Component {
         this.setState({ tabValue: index });
     };
 
+    vote = () => {
+        this.setState({
+            isActionLoading: true
+        }, () => {
+            voteOnPost(this.props.currentProject.permlink).then(() => {
+                setTimeout(() => {
+                    this.props.getCurrentProject(this.props.id)
+                }, 10000)
+            })
+        })
+    }
+
+    comment = (text) => {
+        this.setState({
+            isActionLoading: true
+        }, () => {
+            commentOnPost(this.props.currentProject.permlink, '', this.state.comment).then(() => {
+                setTimeout(() => {
+                    this.props.getCurrentProject(this.props.id)
+                }, 10000)
+            })
+        })
+    }
+
+    commentDelete = (permlink) => {
+        this.setState({
+            isActionLoading: true
+        }, () => {
+            deleteCommentOnPost(permlink).then(() => {
+                setTimeout(() => {
+                    this.props.getCurrentProject(this.props.id)
+                }, 10000)
+            })
+        })
+    }
+
     render() {
         const { classes } = this.props;
         let voters = [];
@@ -74,7 +113,7 @@ class Project extends React.Component {
 
             return <p>Loading project...</p>
         } else {
-            const comments = this.props.comments.reverse();
+            const comments = this.props.comments;
             const allVoters = this.props.currentProject.active_votes.reverse().filter(vote => vote.voter);
             allVoters.forEach(voter => !voters.includes(voter) && voters.push(voter));
 
@@ -117,6 +156,14 @@ class Project extends React.Component {
 
                                 <div>
                                     <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} />
+                                    <span onClick={this.vote}>
+                                        {!this.state.isActionLoading ? 'Vote' : 'Voting...'}
+                                    </span>
+                                    <span>
+                                        <p>Comment</p>
+                                        <textarea id="noter-text-area" name="textarea" value={this.state.comment} onChange={(e) => this.setState({ comment: e.target.value })} />
+                                        <input type="submit" value={!this.state.isActionLoading ? 'Comment' : 'Commenting...'} onClick={this.comment} disabled={this.state.isActionLoading} />
+                                    </span>
                                 </div>
                             </div>
                         </Grid>
@@ -144,7 +191,11 @@ class Project extends React.Component {
                                         {
                                             comments.map((cm, i) => {
                                                 return <div key={`${i}_${cm.author}`}>
-                                                    <h4>Author: {cm.author}</h4>
+                                                    <h4>Author: {cm.author}
+                                                        {/* {steem_user === cm.author &&
+                                                            <span onClick={() => this.commentDelete(cm.permlink)}>{!this.state.isActionLoading ? 'Delete' : 'Deleting...'}</span>
+                                                        } */}
+                                                    </h4>
                                                     <div id={'markdown'}>
                                                         <ReactMarkdown source={cm.body} escapeHtml={true} />
                                                     </div>
@@ -157,7 +208,9 @@ class Project extends React.Component {
                                     <TabContainer dir={'ltr'}>
                                         {
                                             comments.map((cm, i, arr) => {
-                                                return <b key={`${i}_${cm.author}`}>{cm.author}{i === arr.length - 1 ? '' : ', '}<br /></b>
+                                                return <b key={`${i}_${cm.author}`}>
+                                                    {cm.author}{i === arr.length - 1 ? '' : ', '}<br />
+                                                </b>
                                             })
                                         }
                                     </TabContainer>
