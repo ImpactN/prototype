@@ -23,8 +23,9 @@ import Project from './routes/Project/Project';
 import Home from './routes/Home/Home';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
+import { CreateProject } from './routes/CreateProject/CreateProject';
 import Grid from '@material-ui/core/Grid';
-import { getProjects, getProjectComments } from './services/SteemApi';
+import { getProjects, getProjectComments, getProjectUpdates } from './services/SteemApi';
 
 const styles = {
   app: {
@@ -61,6 +62,8 @@ class App extends Component {
     this.state = {
       user: null,
       projects: [],
+      comments: [],
+      updatesProject: [],
       currentProject: null
     }
   }
@@ -80,10 +83,13 @@ class App extends Component {
     if (this.state.projects.length > 0) {
       const proj = this.state.projects.find(proj => proj.post_id === +projectId);
       getProjectComments(proj.permlink).then(comments => {
-        this.setState({
-          currentProject: proj,
-          comments
-        });
+        getProjectUpdates(proj.author).then(updatesProject => {
+          this.setState({
+            currentProject: proj,
+            comments,
+            updatesProject
+          });
+        })
       })
     } else {
       getProjects().then(projects => {
@@ -124,6 +130,7 @@ class App extends Component {
               <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} />
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
               <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
+              <Route path="/create-project" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
               <Route path="/projects/:id" exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />

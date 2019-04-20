@@ -221,9 +221,11 @@ class Home extends React.Component {
                             </Grid>
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column">
-                                <Button variant="contained" size="large" className={classes.centeredButton}>
-                                    Create next project
-                                </Button>
+                                <Link to={`/create-project`} className={classes.link}>
+                                    <Button variant="contained" size="large" className={classes.centeredButton}>
+                                        Create next project
+                                    </Button>
+                                </Link>
                             </Grid>
                         </div>
                     </Grid>

@@ -8,7 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from "react-markdown";
-import { voteOnPost, commentOnPost, deleteCommentOnPost, steem_user } from '../../services/SteemApi';
+import { voteOnPost, commentOnPost, deleteCommentOnPost, steem_user, submitUpdate } from '../../services/SteemApi';
 
 const styles = {
     root: {
@@ -54,7 +54,7 @@ class Project extends React.Component {
         super(props);
 
         this.state = {
-            tabValue: 0,
+            tabValue: 1,
             comment: '',
             isActionLoading: false
         };
@@ -104,6 +104,27 @@ class Project extends React.Component {
         })
     }
 
+    commentSubmit = () => {
+        const title = this.state.newTitle, body = this.state.newBody;
+        this.setState({
+            isActionLoading: true
+        }, () => {
+            submitUpdate(title, body).then(() => {
+                setTimeout(() => {
+                    this.props.getCurrentProject(this.props.id)
+                }, 10000)
+            })
+        })
+    }
+
+    addNewTitle = (newTitle) => {
+        this.setState({ newTitle })
+    }
+
+    addNewBody = (newBody) => {
+        this.setState({ newBody })
+    }
+
     render() {
         const { classes } = this.props;
         let voters = [];
@@ -123,15 +144,15 @@ class Project extends React.Component {
                         <Grid item xs={12}>
                             <div className={classes.navBtnBlock}>
                                 <Grid container direction="row">
-                                    {/* <Grid container item xs={4} justify="center" alignItems="center" direction="column">
-                                        <Link to="/discover" className={classes.link}>
+                                    {<Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                        <Link to="/create-project" className={classes.link}>
                                             <Button variant="contained" size="large" className={classes.centeredButton}>
-                                                Discover
+                                                Start new project
                                             </Button>
                                         </Link>
-                                    </Grid>
+                                    </Grid>}
 
-                                    <Grid container item xs={4} justify="center" alignItems="center" direction="column">
+                                    {/* <Grid container item xs={4} justify="center" alignItems="center" direction="column">
                                         <Link to="/discover" className={classes.link}>
                                             <Button variant="contained" size="large" className={classes.centeredButton}>
                                                 Start a project
@@ -177,6 +198,7 @@ class Project extends React.Component {
                                     textColor="primary"
                                     variant="fullWidth"
                                 >
+                                    <Tab label="Story" />
                                     <Tab label="Updates" />
                                     <Tab label="Co-creators" />
                                     <Tab label="Backers" />
@@ -188,8 +210,12 @@ class Project extends React.Component {
                                     onChangeIndex={this.handleChangeIndex}
                                 >
                                     <TabContainer dir={'ltr'}>
+                                        {this.props.currentProject.title}
+                                    </TabContainer>
+
+                                    <TabContainer dir={'ltr'}>
                                         {
-                                            comments.map((cm, i) => {
+                                            this.props.updatesProject.map((cm, i) => {
                                                 return <div key={`${i}_${cm.author}`}>
                                                     <h4>Author: {cm.author}
                                                         {/* {steem_user === cm.author &&
@@ -202,6 +228,15 @@ class Project extends React.Component {
                                                     <hr />
                                                 </div>
                                             })
+                                        }
+
+                                        {steem_user === this.props.currentProject.author &&
+                                            <div>
+                                                <p>Title: <input type="text" defaultValue={this.state.newTitle} onChange={(e) => this.addNewTitle(e.target.value)} /></p>
+                                                <p>Body:  <textarea id="noter-body-area" name="textarea" value={this.state.newBody}
+                                                    onChange={(e) => this.addNewBody(e.target.value)} /></p>
+                                                <span onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</span>
+                                            </div>
                                         }
                                     </TabContainer>
 
