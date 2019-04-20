@@ -71,11 +71,33 @@ export const getProjectComments = (permlink) => {
     return client.database.call('get_content_replies', [query.tag, permlink]);
 }
 
+export const getProjectUpdates = () => {
+    return client.database.call('get_state', [`@${steem_user}`]).then(state => {
+        return Object.values(state.content).filter(post => post.author === steem_user);
+    });
+}
+
 export const voteOnPost = (permlink) => {
     api.setAccessToken(steem_ac);
     const weight = 10000;
     return api.vote(steem_user, query.tag, permlink, weight).then(data => {
         return data;
+    })
+}
+
+export const submitPost = (tagsString, title, body) => {
+    api.setAccessToken(steem_ac);
+    const defaultTags = ['impactn-test', `${steem_user}`];
+    const allTags = defaultTags.concat(tagsString.split(',')); 
+    console.log(allTags);
+    
+    var parentPermlink = allTags[0]; 
+    var permlink = title.replace(/ /g, "-");
+    permlink = permlink.toLowerCase(); 
+    
+    return getLoggedUserInfo().then(info => {
+        const json_metadata = info.account.json_metadata;
+        return api.comment('', parentPermlink, steem_user, permlink, title, body, json_metadata);
     })
 }
 
