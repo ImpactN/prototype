@@ -44,9 +44,6 @@ const styles = {
         height: 400,
         overflow: 'scroll'
     },
-    centeredButton: {
-        marginTop: 50
-    },
     btnLink: {
         textDecoration: 'none',
         background: '#3f51b5',

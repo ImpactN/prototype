@@ -18,7 +18,7 @@ class CreateProject extends PureComponent {
             <div className={this.props.classes.block}>
                 <h4>In Order to create a Project you will need to create an account within Steem Blockchain ecosystem.</h4>
                 <p>This will cost you <b>2.42 euro</b></p>
-                <Button color="secondary" variant="contained" title="Test Steem Ninja Widget" data-name="https://impactn.herokuapp.com/" data-image="" data-referrer="vadkuhtin" href="https://widget.steem.ninja/widget.html?referrer=vadkuhtin" className="ninja-widget">Create a Project</Button>
+                <Button color="secondary" variant="contained" title="Register a blockchain-account on Steem" data-name="https://impactn.herokuapp.com/" data-image="https://cdn.steemitimages.com/DQmTcY5JEFWm2Qq1ccWPKXchFtgyEzwd3kAU6GJ6iMdGjaG/SDG.jpg.png" data-referrer="impactn" href="https://widget.steem.ninja/widget.html?referrer=impactn" className="ninja-widget">Register a blockchain-account on Steem</Button>
                 <h4>If you already have steem account you can just <Button color="primary" variant="contained" href="/login">Login</Button></h4>
             </div>
         );

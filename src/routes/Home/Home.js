@@ -69,10 +69,6 @@ const styles = {
 };
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { classes } = this.props;
         // const carouselElements = [
@@ -214,13 +210,13 @@ class Home extends React.Component {
                     <Grid item xs={12} sm={12}>
                         <div className={classes.block}>
                             <h3 className={classes.title}>
-                                Projects
+                                Projects feed
                             </h3>
 
                             <Grid container direction="row">
                                 {this.props.projects.length > 0 &&
-                                    this.props.projects.map(proj => {
-                                        return <Grid item xs={12} sm={12} md={4}>
+                                    this.props.projects.map((proj, i) => {
+                                        return <Grid item xs={12} sm={12} md={4} key={i}>
                                         <div className={classes.homeProject} id={'markdown'}>
                                                 <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3 className={classes.link}>{proj.title}</h3></Link>
                                                 <ReactMarkdown className="markdown-body" source={bodyMore(proj.body)} escapeHtml={true} />

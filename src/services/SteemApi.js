@@ -1,12 +1,13 @@
 const sc2 = require('steemconnect');
 const dsteem = require('dsteem');
+// const _ = require('lodash');
 
 const client = new dsteem.Client('https://api.steemit.com');
 
 // init steemconnect
 const api = sc2.Initialize({
-  app: 'vadkuhtin',
-  callbackURL: 'http://localhost:3000',
+  app: 'impactn',
+  callbackURL: 'https://impactn.herokuapp.com/',
   accessToken: 'access_token',
   scope: ['vote', 'comment', 'offline', 'custom_json'],
 });
@@ -31,8 +32,8 @@ export const steem_user = JSON.parse(localStorage.getItem('steem_user'));
 
 const filter = 'blog';
 const query = {
-  tag: 'impactn-projects',
-  limit: 50,
+  tag: 'impactn',
+  limit: 100,
 };
 
 export const isLoggedIn = steem_ac && steem_user;
@@ -59,7 +60,8 @@ export const getLoggedUserInfo = () => {
 
 export const getProjects = () => {
   return client.database.getDiscussions(filter, query).then(result => {
-    return result.filter(post => post.author === query.tag);
+    const posts = result.filter(post => post.author === query.tag);
+    return posts;
   });
 };
 
@@ -87,7 +89,7 @@ export const voteOnPost = (permlink) => {
 
 export const submitUpdate = (tagsString, title, body) => {
   api.setAccessToken(steem_ac);
-  const defaultTags = ['impactn-test', `${steem_user}`];
+  const defaultTags = ['impactn', `${steem_user}`];
   const allTags = defaultTags.concat(tagsString.split(','));
 
   var parentPermlink = allTags[0];
