@@ -14,11 +14,17 @@ import {
 // getProjectUpdates
 // submitPost
 } from '../../services/SteemApi';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
-export class Login extends PureComponent{
+const styles = {
+  block: {
+    margin: '20px 5%'
+  },
+}
+
+class Login extends PureComponent{
     componentDidMount() {
-        window.SteemNinja.bindWidgetToDOM();
-
         //   getProjects().then(res => console.log(res));
 //   getProjectDetails('spread-goood').then(res => console.log(res));
 //   getProjectComments('spread-goood').then(res => console.log(res));
@@ -31,11 +37,15 @@ export class Login extends PureComponent{
 
     render () {
         return (
-            <div>
-            {!isLoggedIn && <a href={loginURL}>Login</a>}
-            {isLoggedIn && <p>{steem_user}: <button onClick={logOut}>Logout</button></p>}
-            {<a title="Test Steem Ninja WIdget" data-name="https://impactn.herokuapp.com/" data-image="" data-referrer="vadkuhtin" href="https://widget.steem.ninja/widget.html?referrer=vadkuhtin" className="ninja-widget">Buy a Steem Account</a>}
+            <div className={this.props.classes.block}>
+            {!isLoggedIn && <Button color="primary" variant="contained" href={loginURL}>Login</Button>}
+            {isLoggedIn && <div>
+              <p>Account: <b>{steem_user}</b></p>
+              <Button onClick={logOut} color="primary" variant="contained">Logout</Button>
+              </div>}
             </div>
         );
             }
 }
+
+export default withStyles(styles)(Login);

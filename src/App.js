@@ -13,17 +13,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+// import IconButton from '@material-ui/core/IconButton';
+// import MenuIcon from '@material-ui/icons/Menu';
 import { Contact } from './routes/Contact/Contact';
-import { Login } from './routes/Login/Login';
-import { Signup } from './routes/Signup/Signup';
-import { Sponsor } from './routes/Sponsor/Sponsor';
+import Login from './routes/Login/Login';
+import CreateProject from './routes/CreateProject/CreateProject';
+// import { Sponsor } from './routes/Sponsor/Sponsor';
 import Project from './routes/Project/Project';
 import Home from './routes/Home/Home';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
-import { CreateProject } from './routes/CreateProject/CreateProject';
 import Grid from '@material-ui/core/Grid';
 import { getProjects, getProjectComments, getProjectUpdates } from './services/SteemApi';
 
@@ -112,12 +111,12 @@ class App extends Component {
 
               <Link to="/contact" className={classes.link}><Button color="inherit">Contact</Button></Link>
               <Link to="/login" className={classes.link}><Button color="inherit">Log in</Button></Link>
-              <Link to="/signup" className={classes.link}><Button color="inherit">Sign Up</Button></Link>
-              <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link>
+              <Link to="/create-project" className={classes.link}><Button color="inherit">Create a Project</Button></Link>
+              {/* <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link> */}
 
-              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon />
-              </IconButton>
+              </IconButton> */}
             </Toolbar>
           </AppBar>
 
@@ -126,8 +125,7 @@ class App extends Component {
               <Route path="/" exact component={() => <Home {...this.state} update={this.updateState} />} />
               <Route path="/contact" exact component={() => <Contact {...this.state} update={this.updateState} />} />
               <Route path="/login" exact component={() => <Login {...this.state} update={this.updateState} />} />
-              <Route path="/signup" exact component={() => <Signup {...this.state} update={this.updateState} />} />
-              <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} />
+              {/* <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} /> */}
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
               <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
               <Route path="/create-project" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
@@ -144,7 +142,7 @@ class App extends Component {
                 <Link to="/impressum" className={classes.link}><Button color="inherit">Impressum</Button></Link>
                 <Link to="/gdpr" className={classes.link}><Button color="inherit">GDPR</Button></Link>
               </Grid>
-
+{/* 
               <Grid container item xs={6} justify="flex-end" alignItems="center" direction="row">
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                   <MenuIcon />
@@ -155,7 +153,7 @@ class App extends Component {
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                   <MenuIcon />
                 </IconButton>
-              </Grid>
+              </Grid> */}
             </Toolbar>
           </AppBar>
         </Router>

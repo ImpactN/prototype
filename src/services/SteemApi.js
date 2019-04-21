@@ -89,7 +89,6 @@ export const submitUpdate = (tagsString, title, body) => {
   api.setAccessToken(steem_ac);
   const defaultTags = ['impactn-test', `${steem_user}`];
   const allTags = defaultTags.concat(tagsString.split(','));
-  console.log(allTags);
 
   var parentPermlink = allTags[0];
   var permlink = title.replace(/ /g, "-");

@@ -2,11 +2,11 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
 import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import ReactMarkdown from "react-markdown";
 import { voteOnPost, commentOnPost, deleteCommentOnPost, steem_user, submitUpdate } from '../../services/SteemApi';
 
@@ -15,10 +15,10 @@ const styles = {
         flexGrow: 1,
     },
     navBtnBlock: {
-        margin: '20px 22%'
+        margin: '20px 5%'
     },
     block: {
-        margin: '60px 22%'
+        margin: '20px 5%'
     },
     title: {
         fontSize: 32
@@ -27,7 +27,12 @@ const styles = {
         textAlign: 'center'
     },
     centeredButton: {
-        marginTop: 50
+        marginTop: 30,
+        marginBottom: 30
+    },
+    responsive: {
+        width: '80%',
+        texAlign: 'center'
     },
     homeProject: {
         border: '1px solid #000000',
@@ -48,6 +53,8 @@ function TabContainer({ children, dir }) {
         </Typography>
     );
 }
+
+const timeoutDelay = 3000;
 
 class Project extends React.Component {
     constructor(props) {
@@ -75,21 +82,23 @@ class Project extends React.Component {
             voteOnPost(this.props.currentProject.permlink).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id)
-                }, 10000)
+                }, timeoutDelay)
             })
         })
     }
 
-    comment = (text) => {
+    comment = () => {
+        if (this.state.comment) {
         this.setState({
             isActionLoading: true
         }, () => {
             commentOnPost(this.props.currentProject.permlink, '', this.state.comment).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id)
-                }, 10000)
+                }, timeoutDelay)
             })
         })
+        }
     }
 
     commentDelete = (permlink) => {
@@ -99,7 +108,7 @@ class Project extends React.Component {
             deleteCommentOnPost(permlink).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id)
-                }, 10000)
+                }, timeoutDelay)
             })
         })
     }
@@ -112,7 +121,7 @@ class Project extends React.Component {
             submitUpdate(title, body).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id)
-                }, 10000)
+                }, timeoutDelay)
             })
         })
     }
@@ -144,13 +153,13 @@ class Project extends React.Component {
                         <Grid item xs={12}>
                             <div className={classes.navBtnBlock}>
                                 <Grid container direction="row">
-                                    {<Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                    {/* {<Grid container item xs={3} justify="center" alignItems="center" direction="column">
                                         <Link to="/create-project" className={classes.link}>
                                             <Button variant="contained" size="large" className={classes.centeredButton}>
                                                 Start new project
                                             </Button>
                                         </Link>
-                                    </Grid>}
+                                    </Grid>} */}
 
                                     {/* <Grid container item xs={4} justify="center" alignItems="center" direction="column">
                                         <Link to="/discover" className={classes.link}>
@@ -177,14 +186,30 @@ class Project extends React.Component {
 
                                 <div>
                                     <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} />
-                                    <span onClick={this.vote}>
+                                    <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
                                         {!this.state.isActionLoading ? 'Vote' : 'Voting...'}
-                                    </span>
-                                    <span>
-                                        <p>Comment</p>
-                                        <textarea id="noter-text-area" name="textarea" value={this.state.comment} onChange={(e) => this.setState({ comment: e.target.value })} />
-                                        <input type="submit" value={!this.state.isActionLoading ? 'Comment' : 'Commenting...'} onClick={this.comment} disabled={this.state.isActionLoading} />
-                                    </span>
+                                    </Button>
+                                    <div>
+                                        <TextField 
+                                            variant="outlined"
+                                            multiline
+                                            rowsMax="4"
+                                            type="textarea"
+                                            label="Comment"
+                                            id="noter-text-area" 
+                                            value={this.state.comment} 
+                                            className={`${classes.responsive}`}
+                                            onChange={(e) => this.setState({ comment: e.target.value })} />
+                                    <div>
+                                    <Button variant="contained" size="large" color="secondary" 
+                                        className={`${classes.centeredButton}`} 
+                                        onClick={this.comment}
+                                        disabled={!this.state.comment}
+                                        >
+                                        {!this.state.isActionLoading ? 'Comment' : 'Commenting...'}
+                                    </Button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </Grid>

@@ -25,7 +25,7 @@ const styles = {
         fontSize: 18
     },
     block: {
-        margin: '60px 22%'
+        margin: '30px 5%'
     },
     title: {
         fontSize: 32
@@ -35,7 +35,7 @@ const styles = {
     },
     homeCircle: {
         borderRadius: '50%',
-        border: '1px solid #000000',
+        border: '1px dashed #3f51b5',
         width: 100,
         height: 100,
         marginTop: 75
@@ -44,18 +44,28 @@ const styles = {
         padding: '0 10%'
     },
     homeProject: {
-        border: '1px solid #000000',
+        border: '1px dashed #3f51b5',
         width: '80%',
         margin: '75px 25px 0 25px',
         padding: 25,
         paddingTop: 5,
         boxSizing: 'border-box',
         height: 400,
-        overflow: 'hidden'
+        overflow: 'scroll'
     },
     centeredButton: {
         marginTop: 50
     },
+    btnLink: {
+        textDecoration: 'none',
+        background: '#3f51b5',
+        color: '#ffffff',
+    },
+    link: {
+        textDecoration: 'none',
+        color: '#3f51b5',
+        textAlign: 'center'
+    }
 };
 
 class Home extends React.Component {
@@ -65,14 +75,14 @@ class Home extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const carouselElements = [
-            { title: '#1', text: 'Some' },
-            { title: '#2', text: 'Some2' },
-            { title: '#3', text: 'Some3' },
-            { title: '#4', text: 'Some4' },
-            { title: '#5', text: 'Some5' },
-            { title: '#6', text: 'Some6' },
-        ];
+        // const carouselElements = [
+        //     { title: '#1', text: 'Some' },
+        //     { title: '#2', text: 'Some2' },
+        //     { title: '#3', text: 'Some3' },
+        //     { title: '#4', text: 'Some4' },
+        //     { title: '#5', text: 'Some5' },
+        //     { title: '#6', text: 'Some6' },
+        // ];
 
         const bodyMore = (body) => {
             return body.substring(0, 400) + '...';
@@ -81,7 +91,7 @@ class Home extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container direction="column">
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <div className={classes.claim}>
                             <h1 className={classes.claimHeader}>Claim</h1>
                             <h3 className={classes.claimSub}>Subtitle</h3>
@@ -89,7 +99,7 @@ class Home extends React.Component {
                                 Default
                             </Button>
                         </div>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <div className={classes.block}>
                             <h3 className={classes.title}>
@@ -124,7 +134,7 @@ class Home extends React.Component {
                             </p>
 
                             <Grid container direction="row">
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Create project</h3>
                                     <p className={classes.homeCircleText}>
@@ -132,7 +142,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Find co-creators</h3>
                                     <p className={classes.homeCircleText}>
@@ -140,7 +150,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Reward social impact</h3>
                                     <p className={classes.homeCircleText}>
@@ -148,7 +158,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Fund/Invest projects</h3>
                                     <p className={classes.homeCircleText}>
@@ -166,7 +176,7 @@ class Home extends React.Component {
                             </h3>
 
                             <Grid container direction="row">
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Donors/philanthropists</h3>
                                     <p className={classes.homeCircleText}>
@@ -174,7 +184,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Change-influencers</h3>
                                     <p className={classes.homeCircleText}>
@@ -182,7 +192,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Investors</h3>
                                     <p className={classes.homeCircleText}>
@@ -190,7 +200,7 @@ class Home extends React.Component {
                                     </p>
                                 </Grid>
 
-                                <Grid container item xs={3} justify="center" alignItems="center" direction="column">
+                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
                                     <div className={classes.homeCircle} />
                                     <h3>Companies</h3>
                                     <p className={classes.homeCircleText}>
@@ -201,7 +211,7 @@ class Home extends React.Component {
                         </div>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={12}>
                         <div className={classes.block}>
                             <h3 className={classes.title}>
                                 Projects
@@ -210,19 +220,19 @@ class Home extends React.Component {
                             <Grid container direction="row">
                                 {this.props.projects.length > 0 &&
                                     this.props.projects.map(proj => {
-                                        return <Grid container item xs={4} key={proj.post_id} justify="center" alignItems="center" direction="column">
-                                            <div className={classes.homeProject} id={'markdown'}>
-                                                <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3>{proj.title}</h3></Link>
+                                        return <Grid item xs={12} sm={12} md={4}>
+                                        <div className={classes.homeProject} id={'markdown'}>
+                                                <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3 className={classes.link}>{proj.title}</h3></Link>
                                                 <ReactMarkdown source={bodyMore(proj.body)} escapeHtml={true} />
                                             </div>
-                                        </Grid>
+                                            </Grid>
                                     })
                                 }
                             </Grid>
 
-                            <Grid container item xs={12} justify="center" alignItems="center" direction="column">
-                                <Link to={`/create-project`} className={classes.link}>
-                                    <Button variant="contained" size="large" className={classes.centeredButton}>
+                            <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
+                                <Link to={`/signup`} className={classes.link}>
+                                    <Button variant="contained" size="large" color="primary" className={classes.btnLink}>
                                         Create next project
                                     </Button>
                                 </Link>
@@ -248,21 +258,21 @@ class Home extends React.Component {
                         </div>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <div className={classes.block}>
                             <h3 className={classes.title}>
                                 News
                             </h3>
 
-                            <Carousel elements={carouselElements} perPage={4} />
+                            <Carousel elements={carouselElements} perPage={4} /> */}
 
-                            <Grid container item xs={12} justify="center" alignItems="center" direction="column">
+                            {/* <Grid container item xs={12} justify="center" alignItems="center" direction="column">
                                 <Button variant="contained" size="large" className={classes.centeredButton}>
                                     Stay updated
                                 </Button>
-                            </Grid>
-                        </div>
-                    </Grid>
+                            </Grid> */}
+                        {/* </div>
+                    </Grid> */}
 
                     <Grid item xs={12}>
                         <div className={classes.block}>
@@ -280,11 +290,11 @@ class Home extends React.Component {
                                 Aldus PageMaker including versions of Lorem Ipsum.
                             </p>
 
-                            <Grid container item xs={12} justify="center" alignItems="center" direction="column">
+                            {/* <Grid container item xs={12} justify="center" alignItems="center" direction="column">
                                 <Button variant="contained" size="large" className={classes.centeredButton}>
                                     Become a volunteer
                                 </Button>
-                            </Grid>
+                            </Grid> */}
                         </div>
                     </Grid>
 
