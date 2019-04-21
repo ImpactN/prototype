@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Carousel from '../../common/Carousel';
+// import Carousel from '../../common/Carousel';
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
@@ -223,7 +223,7 @@ class Home extends React.Component {
                                         return <Grid item xs={12} sm={12} md={4}>
                                         <div className={classes.homeProject} id={'markdown'}>
                                                 <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3 className={classes.link}>{proj.title}</h3></Link>
-                                                <ReactMarkdown source={bodyMore(proj.body)} escapeHtml={true} />
+                                                <ReactMarkdown className="markdown-body" source={bodyMore(proj.body)} escapeHtml={true} />
                                             </div>
                                             </Grid>
                                     })

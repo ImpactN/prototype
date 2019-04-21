@@ -35,15 +35,28 @@ const styles = {
         texAlign: 'center'
     },
     homeProject: {
-        border: '1px solid #000000',
+        border: '1px dashed #3f51b5',
         width: '80%',
         margin: '75px 25px 0 25px',
         padding: 25,
         paddingTop: 5,
         boxSizing: 'border-box',
         height: 400,
-        overflow: 'hidden'
+        overflow: 'scroll'
     },
+    centeredButton: {
+        marginTop: 50
+    },
+    btnLink: {
+        textDecoration: 'none',
+        background: '#3f51b5',
+        color: '#ffffff',
+    },
+    link: {
+        textDecoration: 'none',
+        color: '#3f51b5',
+        textAlign: 'center'
+    }
 };
 
 function TabContainer({ children, dir }) {
@@ -138,6 +151,10 @@ class Project extends React.Component {
         const { classes } = this.props;
         let voters = [];
 
+        const bodyMore = (body) => {
+            return body.substring(0, 400) + '...';
+        };
+
         if (!this.props.currentProject || (this.props.currentProject && this.props.currentProject.post_id !== +this.props.id)) {
             this.props.getCurrentProject(this.props.id);
 
@@ -185,7 +202,7 @@ class Project extends React.Component {
                                 </h3>
 
                                 <div>
-                                    <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} />
+                                    <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} className="markdown-body" />
                                     <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
                                         {!this.state.isActionLoading ? 'Vote' : 'Voting...'}
                                     </Button>
@@ -239,28 +256,48 @@ class Project extends React.Component {
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
-                                        {
-                                            this.props.updatesProject.map((cm, i) => {
-                                                return <div key={`${i}_${cm.author}`}>
-                                                    <h4>Author: {cm.author}
-                                                        {/* {steem_user === cm.author &&
-                                                            <span onClick={() => this.commentDelete(cm.permlink)}>{!this.state.isActionLoading ? 'Delete' : 'Deleting...'}</span>
-                                                        } */}
-                                                    </h4>
-                                                    <div id={'markdown'}>
-                                                        <ReactMarkdown source={cm.body} escapeHtml={true} />
-                                                    </div>
-                                                    <hr />
-                                                </div>
-                                            })
-                                        }
+                                    <div className={classes.block}>
+                                    
+                                    </div>
+                                        <Grid container direction="row">
+                                                        {this.props.updatesProject.length > 0 &&
+                                                            this.props.updatesProject.map((proj, index) => {
+                                                                return <Grid item xs={12} sm={12} md={4} key={index}>
+                                                                    <div className={classes.homeProject}>
+                                                                        <div className={classes.link}><h3 className={classes.link}>{proj.title}</h3></div>
+                                                                        <ReactMarkdown source={bodyMore(proj.body)} escapeHtml={true} className="markdown-body" />
+                                                                    </div>
+                                                                </Grid>
+                                                            })
+                                                        }
+                                                    </Grid>
 
                                         {steem_user === this.props.currentProject.author &&
                                             <div>
-                                                <p>Title: <input type="text" defaultValue={this.state.newTitle} onChange={(e) => this.addNewTitle(e.target.value)} /></p>
-                                                <p>Body:  <textarea id="noter-body-area" name="textarea" value={this.state.newBody}
-                                                    onChange={(e) => this.addNewBody(e.target.value)} /></p>
-                                                <span onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</span>
+                                                <h2>Add new update</h2>
+                                                <p>
+                                                    <TextField 
+                                                        variant="outlined"
+                                                        type="textarea"
+                                                        label="Title"
+                                                        id="noter-body-area-new-title"
+                                                        value={this.state.newBody}
+                                                        className={`${classes.responsive}`}
+                                                        onChange={(e) => this.addNewBody(e.target.value)} />
+                                                        </p>
+                                                <p>
+                                                    <TextField 
+                                                        variant="outlined"
+                                                        multiline
+                                                        rowsMax="4"
+                                                        type="textarea"
+                                                        label="Text"
+                                                        id="noter-body-area-new-body"
+                                                        value={this.state.newBody}
+                                                        className={`${classes.responsive}`}
+                                                        onChange={(e) => this.addNewBody(e.target.value)} />
+                                                </p>
+                                                <Button color="primary" variant="contained" onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</Button>
                                             </div>
                                         }
                                     </TabContainer>

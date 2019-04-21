@@ -73,7 +73,7 @@ export const getProjectComments = (permlink) => {
 
 export const getProjectUpdates = (name) => {
   return client.database.call('get_state', [`@${name}`]).then(state => {
-    return Object.values(state.content).filter(post => post.author === steem_user);
+    return Object.values(state.content).filter(post => post.author === name);
   });
 }
 
