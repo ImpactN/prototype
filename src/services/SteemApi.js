@@ -7,7 +7,7 @@ const client = new dsteem.Client('https://api.steemit.com');
 // init steemconnect
 const api = sc2.Initialize({
   app: 'impactn',
-  callbackURL: 'https://impactn.herokuapp.com',
+  callbackURL: 'https://impactn.herokuapp.com/',
   accessToken: 'access_token',
   scope: ['vote', 'comment', 'offline', 'delete_comment'],
 });
