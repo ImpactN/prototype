@@ -32,6 +32,7 @@ export const steem_ac = JSON.parse(localStorage.getItem('steem_ac'));
 export const steem_user = JSON.parse(localStorage.getItem('steem_user'));
 
 const filter = 'blog';
+const defaultTag = 'impactn-project-intro';
 const query = {
   tag: 'impactn',
   limit: 100,
@@ -67,6 +68,12 @@ export const getProjects = () => {
   });
 };
 
+export const getProjectIntro = (author) => {
+  return client.database.getDiscussions(filter, query).then(result => {
+    return result.find(proj => proj.author === author);
+  });
+};
+
 export const getProjectDetails = (permlink) => {
   return client.database.call('get_content', [orgName, permlink]);
 }
@@ -89,9 +96,12 @@ export const voteOnPost = (author, permlink) => {
   })
 }
 
-export const submitUpdate = (tagsString, title, body) => {
+export const submitUpdate = (tagsString, title, body, isInitialPost) => {
   api.setAccessToken(steem_ac);
   const defaultTags = ['impactn', `${steem_user}`];
+  if (isInitialPost) {
+    defaultTags.push(defaultTag);
+  }
   const allTags = defaultTags.concat(tagsString.split(','));
 
   var parentPermlink = allTags[0];

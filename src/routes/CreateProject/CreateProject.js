@@ -11,6 +11,9 @@ const styles = {
 class CreateProject extends PureComponent {
     componentDidMount() {
         window.SteemNinja.bindWidgetToDOM();
+        window.addEventListener('ninja.checkout', (e) => {
+            window.location.href = '/initial-post';
+        });
     }
 
     render() {

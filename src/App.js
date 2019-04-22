@@ -25,6 +25,7 @@ import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
 import { getProjects, getProjectComments, getProjectUpdates } from './services/SteemApi';
+import InitialPost from './routes/InitialPost/InitialPost';
 
 const styles = {
   app: {
@@ -125,7 +126,7 @@ class App extends Component {
               <Route path="/" exact component={() => <Home {...this.state} update={this.updateState} />} />
               <Route path="/contact" exact component={() => <Contact {...this.state} update={this.updateState} />} />
               <Route path="/login" exact component={() => <Login {...this.state} update={this.updateState} />} />
-              {/* <Route path="/sponsor" exact component={() => <Sponsor {...this.state} update={this.updateState} />} /> */}
+              <Route path="/initial-post" exact component={() => <InitialPost {...this.state} update={this.updateState} />} />
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
               <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
               <Route path="/create-project" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />

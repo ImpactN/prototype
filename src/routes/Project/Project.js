@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import ReactMarkdown from "react-markdown";
-import { voteOnPost, commentOnPost, deleteCommentOnPost, steem_user, submitUpdate } from '../../services/SteemApi';
+import { getProjectIntro, voteOnPost, commentOnPost, deleteCommentOnPost, steem_user, submitUpdate } from '../../services/SteemApi';
 
 const styles = {
     root: {
@@ -64,7 +64,7 @@ function TabContainer({ children, dir }) {
     );
 }
 
-const timeoutDelay = 3000;
+const timeoutDelay = 6000;
 
 class Project extends React.Component {
     constructor(props) {
@@ -76,8 +76,13 @@ class Project extends React.Component {
             isVoteActionLoading: false,
             isCommentActionLoading: false,
             isVoteDone: false,
-            isCommentDone: false
+            isCommentDone: false, 
+            intro: null
         };
+    }
+
+    componentDidUpdate () {
+        this.props.currentProject && !this.state.intro && getProjectIntro(this.props.currentProject.author).then(intro => this.setState({ intro }))
     }
 
     handleChange = (event, value) => {
@@ -90,13 +95,13 @@ class Project extends React.Component {
 
     vote = () => {
         this.setState({
-            isVoteActionLoading: true, isVoteDone: false
+            isVoteActionLoading: true, 
+            isVoteDone: false
         }, () => {
             voteOnPost(this.props.currentProject.author, this.props.currentProject.permlink).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id);
-                    this.setState({ isVoteDone: true });
-                    this.setState({ isVoteActionLoading: false });
+                    this.setState({ isVoteDone: true, isVoteActionLoading: false  });
                 }, timeoutDelay)
             })
         })
@@ -137,7 +142,7 @@ class Project extends React.Component {
         this.setState({
             isActionLoading: true
         }, () => {
-            submitUpdate(title, body).then(() => {
+            submitUpdate('', title, body).then(() => {
                 setTimeout(() => {
                     this.props.getCurrentProject(this.props.id)
                 }, timeoutDelay)
@@ -210,8 +215,9 @@ class Project extends React.Component {
                                 {steem_user && <div>
                                     <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} className="markdown-body" />
                                     <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
-                                        {!this.state.isVoteActionLoading ? 'Vote' : this.state.isVoteDone ? 'Voted' : 'Voting...'}
+                                        { !this.state.isVoteActionLoading ? 'Vote' : 'Voting...'}
                                     </Button>
+                                    <p>{this.state.isVoteDone && 'Voted...'}</p>
                                     <div>
                                         <TextField 
                                             variant="outlined"
@@ -229,8 +235,9 @@ class Project extends React.Component {
                                             onClick={this.comment}
                                             disabled={!this.state.comment}
                                             >
-                                            {!this.state.isCommentActionLoading ? 'Comment' : this.state.isVoteDone ? 'Commented' : 'Commenting...'}
+                                            {!this.state.isCommentActionLoading ? 'Comment' : 'Commenting...'}
                                         </Button>
+                                        <p>{this.state.isCommentDone && 'Commented...'}</p>
                                     </div>
                                     </div>
                                 </div>}
@@ -258,7 +265,7 @@ class Project extends React.Component {
                                     onChangeIndex={this.handleChangeIndex}
                                 >
                                     <TabContainer dir={'ltr'}>
-                                        {this.props.currentProject.title}
+                                        {this.state.intro && this.state.intro.body && <ReactMarkdown source={this.state.intro.body} escapeHtml={true} className="markdown-body" />}
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
