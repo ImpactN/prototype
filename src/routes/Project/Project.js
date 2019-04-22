@@ -73,7 +73,10 @@ class Project extends React.Component {
         this.state = {
             tabValue: 1,
             comment: '',
-            isActionLoading: false
+            isVoteActionLoading: false,
+            isCommentActionLoading: false,
+            isVoteDone: false,
+            isCommentDone: false
         };
     }
 
@@ -87,11 +90,13 @@ class Project extends React.Component {
 
     vote = () => {
         this.setState({
-            isActionLoading: true
+            isVoteActionLoading: true, isVoteDone: false
         }, () => {
-            voteOnPost(this.props.currentProject.permlink).then(() => {
+            voteOnPost(this.props.currentProject.author, this.props.currentProject.permlink).then(() => {
                 setTimeout(() => {
-                    this.props.getCurrentProject(this.props.id)
+                    this.props.getCurrentProject(this.props.id);
+                    this.setState({ isVoteDone: true });
+                    this.setState({ isVoteActionLoading: false });
                 }, timeoutDelay)
             })
         })
@@ -100,11 +105,14 @@ class Project extends React.Component {
     comment = () => {
         if (this.state.comment) {
         this.setState({
-            isActionLoading: true
+            isCommentActionLoading: true,
+            isCommentDone: false
         }, () => {
-            commentOnPost(this.props.currentProject.permlink, '', this.state.comment).then(() => {
+            commentOnPost(this.props.currentProject.author, this.props.currentProject.permlink, '', this.state.comment).then(() => {
                 setTimeout(() => {
-                    this.props.getCurrentProject(this.props.id)
+                    this.props.getCurrentProject(this.props.id);
+                    this.setState({ isCommentDone: true });
+                    this.setState({ isCommentActionLoading: false });
                 }, timeoutDelay)
             })
         })
@@ -113,11 +121,12 @@ class Project extends React.Component {
 
     commentDelete = (permlink) => {
         this.setState({
-            isActionLoading: true
+            isCommentActionLoading: true
         }, () => {
             deleteCommentOnPost(permlink).then(() => {
                 setTimeout(() => {
-                    this.props.getCurrentProject(this.props.id)
+                    this.props.getCurrentProject(this.props.id);
+                    this.setState({ isCommentActionLoading: false });
                 }, timeoutDelay)
             })
         })
@@ -198,10 +207,10 @@ class Project extends React.Component {
                                     {this.props.currentProject.title}
                                 </h3>
 
-                                <div>
+                                {steem_user && <div>
                                     <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} className="markdown-body" />
                                     <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
-                                        {!this.state.isActionLoading ? 'Vote' : 'Voting...'}
+                                        {!this.state.isVoteActionLoading ? 'Vote' : this.state.isVoteDone ? 'Voted' : 'Voting...'}
                                     </Button>
                                     <div>
                                         <TextField 
@@ -215,16 +224,16 @@ class Project extends React.Component {
                                             className={`${classes.responsive}`}
                                             onChange={(e) => this.setState({ comment: e.target.value })} />
                                     <div>
-                                    <Button variant="contained" size="large" color="secondary" 
-                                        className={`${classes.centeredButton}`} 
-                                        onClick={this.comment}
-                                        disabled={!this.state.comment}
-                                        >
-                                        {!this.state.isActionLoading ? 'Comment' : 'Commenting...'}
-                                    </Button>
-                                        </div>
+                                        <Button variant="contained" size="large" color="secondary" 
+                                            className={`${classes.centeredButton}`} 
+                                            onClick={this.comment}
+                                            disabled={!this.state.comment}
+                                            >
+                                            {!this.state.isCommentActionLoading ? 'Comment' : this.state.isVoteDone ? 'Commented' : 'Commenting...'}
+                                        </Button>
                                     </div>
-                                </div>
+                                    </div>
+                                </div>}
                             </div>
                         </Grid>
 
@@ -300,21 +309,23 @@ class Project extends React.Component {
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
-                                        {
+                                        {comments.length && 
                                             comments.map((cm, i, arr) => {
                                                 return <b key={`${i}_${cm.author}`}>
                                                     {cm.author}{i === arr.length - 1 ? '' : ', '}<br />
                                                 </b>
                                             })
                                         }
+                                        {!comments.length && <p>No comments yet</p>}
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
                                         {
-                                            voters.map((vote, i, arr) => {
+                                            voters.length && voters.map((vote, i, arr) => {
                                                 return <b key={`${i}_${vote.voter}`}>{vote.voter}{i === arr.length - 1 ? '' : ', '}<br /></b>
                                             })
                                         }
+                                        {!voters.length && <p>No votes yet</p>}
                                     </TabContainer>
                                 </SwipeableViews>
                             </div>

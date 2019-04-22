@@ -109,7 +109,7 @@ class App extends Component {
                 <Link to="/" className={classes.link}><Button color="inherit">Logo</Button></Link>
               </Typography>
 
-              <Link to="/contact" className={classes.link}><Button color="inherit">Contact</Button></Link>
+              <a href="mailto:contact@impactn.global" className={classes.link}><Button color="inherit">Contact</Button></a>
               <Link to="/login" className={classes.link}><Button color="inherit">Log in</Button></Link>
               <Link to="/create-project" className={classes.link}><Button color="inherit">Create a Project</Button></Link>
               {/* <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link> */}

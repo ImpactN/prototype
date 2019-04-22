@@ -224,15 +224,25 @@ class Home extends React.Component {
                                             </Grid>
                                     })
                                 }
+                                {!this.props.projects.length && <div>No projects yet, but you can be first!</div>}
                             </Grid>
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
-                                <Link to={`/signup`} className={classes.link}>
+                                <Link to={`/create-project`} className={classes.link}>
                                     <Button variant="contained" size="large" color="primary" className={classes.btnLink}>
                                         Create next project
                                     </Button>
                                 </Link>
                             </Grid>
+
+                            <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
+                                <a href="mailto:vadkuhtin@gmail.com" className={classes.link}>
+                                    <Button variant="contained" size="large" color="secondary" className={classes.btnLink}>
+                                        Become volunteer
+                                    </Button>
+                                </a>
+                            </Grid>
+                            
                         </div>
                     </Grid>
 

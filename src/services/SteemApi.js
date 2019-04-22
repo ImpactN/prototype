@@ -1,12 +1,13 @@
 const sc2 = require('steemconnect');
 const dsteem = require('dsteem');
-// const _ = require('lodash');
+const _ = require('lodash');
 
 const client = new dsteem.Client('https://api.steemit.com');
 
 // init steemconnect
+const orgName = 'impactn';
 const api = sc2.Initialize({
-  app: 'impactn',
+  app: orgName,
   callbackURL: 'https://impactn.herokuapp.com/',
   accessToken: 'access_token',
   scope: ['vote', 'comment', 'offline', 'delete_comment'],
@@ -56,21 +57,22 @@ export const getLoggedUserInfo = () => {
     api.setAccessToken(steem_ac);
     return api.me().then(info => info);
   }
+
+  return api.me().then(info => info);
 }
 
 export const getProjects = () => {
   return client.database.getDiscussions(filter, query).then(result => {
-    const posts = result.filter(post => post.author === query.tag);
-    return posts;
+    return result;
   });
 };
 
 export const getProjectDetails = (permlink) => {
-  return client.database.call('get_content', [query.tag, permlink]);
+  return client.database.call('get_content', [orgName, permlink]);
 }
 
 export const getProjectComments = (permlink) => {
-  return client.database.call('get_content_replies', [query.tag, permlink]);
+  return client.database.call('get_content_replies', [orgName, permlink]);
 }
 
 export const getProjectUpdates = (name) => {
@@ -79,10 +81,10 @@ export const getProjectUpdates = (name) => {
   });
 }
 
-export const voteOnPost = (permlink) => {
+export const voteOnPost = (author, permlink) => {
   api.setAccessToken(steem_ac);
   const weight = 10000;
-  return api.vote(steem_user, query.tag, permlink, weight).then(data => {
+  return api.vote(steem_user, author, permlink, weight).then(data => {
     return data;
   })
 }
@@ -102,12 +104,12 @@ export const submitUpdate = (tagsString, title, body) => {
   })
 }
 
-export const commentOnPost = (projectPermlink, title, body) => {
+export const commentOnPost = (author, projectPermlink, title, body) => {
   api.setAccessToken(steem_ac);
   return getLoggedUserInfo().then(info => {
     const json_metadata = info.account.json_metadata;
     const permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
-    return api.comment(query.tag, projectPermlink, steem_user, permlink, title, body, json_metadata).then(data => {
+    return api.comment(author, projectPermlink, steem_user, permlink, title, body, json_metadata).then(data => {
       return data;
     })
   })
