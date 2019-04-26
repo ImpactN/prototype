@@ -1,10 +1,33 @@
 import React from 'react';
-
+import { withStyles } from '@material-ui/core/styles';
 import InfiniteCarousel from 'react-leaf-carousel';
+import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
+
+const styles = {
+    homeProject: {
+        border: '1px dashed #3f51b5',
+        width: '80%',
+        margin: '75px 25px 0 25px',
+        padding: 25,
+        paddingTop: 5,
+        boxSizing: 'border-box',
+        height: 400,
+        overflow: 'scroll'
+    },
+    link: {
+        textDecoration: 'none',
+        color: '#3f51b5',
+        textAlign: 'center'
+    }
+};
 class Carousel extends React.Component {
     render() {
-        const { elements, perPage } = this.props;
+        const { elements, perPage, classes } = this.props;
+        const bodyMore = (body) => {
+            return body.substring(0, 400) + '...';
+        };
 
         return <InfiniteCarousel
             breakpoints={[
@@ -33,16 +56,15 @@ class Carousel extends React.Component {
             scrollOnDevice={true}>
 
             {
-                elements.map((el, idx) => {
-                    return <div key={idx}>
-                        <img src="https://via.placeholder.com/150" alt={idx} />
-                        <h4>{el.title}</h4>
-                        <p>{el.text}</p>
-                    </div>
+                elements.map((proj, idx) => {
+                    return <div className={classes.homeProject} id={'markdown'} key={idx}>
+                        <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3 className={classes.link}>{proj.title}</h3></Link>
+                        <ReactMarkdown className="markdown-body" source={bodyMore(proj.body)} escapeHtml={true} />
+                    </div>;
                 })
             }
         </InfiniteCarousel>;
     }
 }
 
-export default Carousel;
+export default withStyles(styles)(Carousel);

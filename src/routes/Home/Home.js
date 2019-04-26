@@ -2,9 +2,13 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import Carousel from '../../common/Carousel';
+import Carousel from '../../common/Carousel';
 import { Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
+import MissionImg from './images/missino.png';
+import HowImg from './images/how.jpg';
+import PortraitImg from './images/portrait.jpg';
+import BlockChainImg from './images/block.jpg';
+import EngageImg from './images/engage.jpg';
 
 const styles = {
     root: {
@@ -25,7 +29,7 @@ const styles = {
         fontSize: 18
     },
     block: {
-        margin: '30px 5%'
+        padding: '60px 15%'
     },
     title: {
         fontSize: 32
@@ -33,11 +37,20 @@ const styles = {
     centered: {
         textAlign: 'center'
     },
+    circleBlock1: {
+        backgroundColor: 'rgba(255, 58, 32, 0.75)'
+    },
+    circleBlock2: {
+        backgroundColor: 'rgba(86, 192, 42, 0.75)'
+    },
+    circleBlock3: {
+        backgroundColor: 'rgba(251, 195, 10, 0.75)'
+    },
     homeCircle: {
         borderRadius: '50%',
         border: '1px dashed #3f51b5',
         width: 100,
-        height: 100,
+        height: 125,
         marginTop: 75
     },
     homeCircleText: {
@@ -65,100 +78,46 @@ const styles = {
         textDecoration: 'none',
         color: '#3f51b5',
         textAlign: 'center'
+    },
+    blockColor1: {
+
+    },
+    blockTextP: {
+        padding: '2.5%'
+    },
+    blockTextImg: {
+        textAlign: 'center'
     }
 };
 
 class Home extends React.Component {
     render() {
         const { classes } = this.props;
-        // const carouselElements = [
-        //     { title: '#1', text: 'Some' },
-        //     { title: '#2', text: 'Some2' },
-        //     { title: '#3', text: 'Some3' },
-        //     { title: '#4', text: 'Some4' },
-        //     { title: '#5', text: 'Some5' },
-        //     { title: '#6', text: 'Some6' },
-        // ];
-
-        const bodyMore = (body) => {
-            return body.substring(0, 400) + '...';
-        };
+        const carouselElements = this.props.projects;
 
         return (
             <div className={classes.root}>
                 <Grid container direction="column">
-                    {/* <Grid item xs={12}>
-                        <div className={classes.claim}>
-                            <h1 className={classes.claimHeader}>Claim</h1>
-                            <h3 className={classes.claimSub}>Subtitle</h3>
-                            <Button variant="contained" className={classes.claimText}>
-                                Default
-                            </Button>
-                        </div>
-                    </Grid> */}
                     <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                Mission & Vision
-                            </h3>
-
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                How Does It Work
-                            </h3>
-
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-
-                            <Grid container direction="row">
-                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
-                                    <h3>Create project</h3>
-                                    <p className={classes.homeCircleText}>
-                                        Some explanation
-                                    </p>
+                        <div className={`${classes.block} ${classes.blockColor1}`}>
+                            <Grid container direction="row" alignItems="center" justify="center">
+                                <Grid item xs={6} className={classes.blockTextImg}>
+                                    <img style={{ width: '65%' }} src={MissionImg} alt="Mission" />
                                 </Grid>
 
-                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
-                                    <h3>Find co-creators</h3>
-                                    <p className={classes.homeCircleText}>
-                                        Some explanation
-                                    </p>
-                                </Grid>
+                                <Grid item xs={6} className={classes.blockTextP}>
+                                    <h3 className={classes.title}>
+                                        Mission & Vision
+                                    </h3>
 
-                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
-                                    <h3>Reward social impact</h3>
-                                    <p className={classes.homeCircleText}>
-                                        Some explanation
-                                    </p>
-                                </Grid>
-
-                                <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
-                                    <h3>Fund/Invest projects</h3>
-                                    <p className={classes.homeCircleText}>
-                                        Some explanation
+                                    <p>
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        It has survived not only five centuries, but also the leap into electronic typesetting,
+                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                                        Aldus PageMaker including versions of Lorem Ipsum.
                                     </p>
                                 </Grid>
                             </Grid>
@@ -166,14 +125,76 @@ class Home extends React.Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <div className={classes.block}>
+                        <div className={`${classes.block} ${classes.blockColor1}`}>
+                            <Grid container direction="row" alignItems="center" justify="center">
+                                <Grid item xs={6} className={classes.blockTextP}>
+                                    <h3 className={classes.title}>
+                                        How Does It Work
+                                    </h3>
+
+                                    <p>
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        It has survived not only five centuries, but also the leap into electronic typesetting,
+                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                                        Aldus PageMaker including versions of Lorem Ipsum.
+                                    </p>
+                                </Grid>
+
+                                <Grid item xs={6} className={classes.blockTextImg}>
+                                    <img style={{ width: '50%' }} src={HowImg} alt="How" />
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+
+                    <div className={`${classes.block} ${classes.circleBlock1}`}>
+                        <Grid container direction="row">
+                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
+                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                                <h3>Create project</h3>
+                                <p className={classes.homeCircleText}>
+                                    Some explanation
+                                </p>
+                            </Grid>
+
+                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
+                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                                <h3>Find co-creators</h3>
+                                <p className={classes.homeCircleText}>
+                                    Some explanation
+                                    </p>
+                            </Grid>
+
+                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
+                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                                <h3>Reward social impact</h3>
+                                <p className={classes.homeCircleText}>
+                                    Some explanation
+                                    </p>
+                            </Grid>
+
+                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
+                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                                <h3>Fund/Invest projects</h3>
+                                <p className={classes.homeCircleText}>
+                                    Some explanation
+                                    </p>
+                            </Grid>
+                        </Grid>
+                    </div>
+
+                    <Grid item xs={12}>
+                        <div className={`${classes.block} ${classes.circleBlock2}`}>
                             <h3 className={classes.title}>
                                 For Whom?
                             </h3>
 
                             <Grid container direction="row">
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
+                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Donors/philanthropists</h3>
                                     <p className={classes.homeCircleText}>
                                         Some explanation
@@ -181,7 +202,7 @@ class Home extends React.Component {
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
+                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Change-influencers</h3>
                                     <p className={classes.homeCircleText}>
                                         Some explanation
@@ -189,7 +210,7 @@ class Home extends React.Component {
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
+                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Investors</h3>
                                     <p className={classes.homeCircleText}>
                                         Some explanation
@@ -197,7 +218,7 @@ class Home extends React.Component {
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <div className={classes.homeCircle} />
+                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Companies</h3>
                                     <p className={classes.homeCircleText}>
                                         Some explanation
@@ -208,24 +229,15 @@ class Home extends React.Component {
                     </Grid>
 
                     <Grid item xs={12} sm={12}>
-                        <div className={classes.block}>
+                        <div className={`${classes.block} ${classes.blockColor1}`}>
                             <h3 className={classes.title}>
                                 Projects feed
                             </h3>
 
-                            <Grid container direction="row">
-                                {this.props.projects.length > 0 &&
-                                    this.props.projects.map((proj, i) => {
-                                        return <Grid item xs={12} sm={12} md={4} key={i}>
-                                        <div className={classes.homeProject} id={'markdown'}>
-                                                <Link to={`/projects/${proj.post_id}`} className={classes.link}><h3 className={classes.link}>{proj.title}</h3></Link>
-                                                <ReactMarkdown className="markdown-body" source={bodyMore(proj.body)} escapeHtml={true} />
-                                            </div>
-                                            </Grid>
-                                    })
-                                }
-                                {!this.props.projects.length && <div>No projects yet, but you can be first!</div>}
-                            </Grid>
+                            {this.props.projects.length > 0
+                                ? <Carousel elements={carouselElements} perPage={3} />
+                                : <div>No projects yet, but you can be first!</div>
+                            }
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
                                 <Link to={`/create-project`} className={classes.link}>
@@ -236,75 +248,67 @@ class Home extends React.Component {
                             </Grid>
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
-                                <a href="mailto:vadkuhtin@gmail.com" className={classes.link}>
+                                <a href="mailto:contact@impactn.global" className={classes.link}>
                                     <Button variant="contained" size="large" color="secondary" className={classes.btnLink}>
                                         Become volunteer
                                     </Button>
                                 </a>
                             </Grid>
-                            
+
                         </div>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                Blockchain for sustainable development
-                            </h3>
+                        <div className={`${classes.block} ${classes.circleBlock3}`}>
+                            <Grid container direction="row" alignItems="center" justify="center">
+                                <Grid item xs={6} className={classes.blockTextImg}>
+                                    <img style={{ width: '65%' }} src={BlockChainImg} alt="Blockchain" />
+                                </Grid>
 
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
+                                <Grid item xs={6} className={classes.blockTextP}>
+                                    <h3 className={classes.title}>
+                                        Blockchain for sustainable development
+                                    </h3>
+
+                                    <p>
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        It has survived not only five centuries, but also the leap into electronic typesetting,
+                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                                        Aldus PageMaker including versions of Lorem Ipsum.
+                                    </p>
+                                </Grid>
+                            </Grid>
                         </div>
                     </Grid>
-
-                    {/* <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                News
-                            </h3>
-
-                            <Carousel elements={carouselElements} perPage={4} /> */}
-
-                            {/* <Grid container item xs={12} justify="center" alignItems="center" direction="column">
-                                <Button variant="contained" size="large" className={classes.centeredButton}>
-                                    Stay updated
-                                </Button>
-                            </Grid> */}
-                        {/* </div>
-                    </Grid> */}
 
                     <Grid item xs={12}>
-                        <div className={classes.block}>
-                            <h3 className={classes.title}>
-                                Engage
-                            </h3>
+                        <div className={`${classes.block} ${classes.blockColor1}`}>
+                            <Grid container direction="row" alignItems="center" justify="center">
+                                <Grid item xs={6} className={classes.blockTextP}>
+                                    <h3 className={classes.title}>
+                                        How Does It Work
+                                    </h3>
 
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
+                                    <p>
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        It has survived not only five centuries, but also the leap into electronic typesetting,
+                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                                        Aldus PageMaker including versions of Lorem Ipsum.
+                                    </p>
+                                </Grid>
 
-                            {/* <Grid container item xs={12} justify="center" alignItems="center" direction="column">
-                                <Button variant="contained" size="large" className={classes.centeredButton}>
-                                    Become a volunteer
-                                </Button>
-                            </Grid> */}
+                                <Grid item xs={6} className={classes.blockTextImg}>
+                                    <img style={{ width: '75%' }} src={EngageImg} alt="Engage" />
+                                </Grid>
+                            </Grid>
                         </div>
                     </Grid>
-
-
                 </Grid>
             </div>
         );
