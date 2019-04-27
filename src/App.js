@@ -50,7 +50,7 @@ const styles = {
     color: 'white',
   },
   bar: {
-    padding: '0 20%'
+    padding: '0 15%'
   },
   body: {
     marginTop: 64
@@ -145,7 +145,7 @@ class App extends Component {
                 <Link to="/impressum" className={classes.link}><Button color="inherit">Impressum</Button></Link>
                 <Link to="/gdpr" className={classes.link}><Button color="inherit">GDPR</Button></Link>
               </Grid>
-{/* 
+              {/* 
               <Grid container item xs={6} justify="flex-end" alignItems="center" direction="row">
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                   <MenuIcon />
