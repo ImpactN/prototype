@@ -21,6 +21,7 @@ import CreateProject from './routes/CreateProject/CreateProject';
 // import { Sponsor } from './routes/Sponsor/Sponsor';
 import Project from './routes/Project/Project';
 import Home from './routes/Home/Home';
+import Donate from './routes/Donate/Donate';
 import { Impressum } from './routes/Impressum/Impressum';
 import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
@@ -113,6 +114,7 @@ class App extends Component {
               <a href="mailto:contact@impactn.global" className={classes.link}><Button color="inherit">Contact</Button></a>
               <Link to="/login" className={classes.link}><Button color="inherit">Log in</Button></Link>
               <Link to="/create-project" className={classes.link}><Button color="inherit">Create a Project</Button></Link>
+              <Link to="/donate" className={classes.link}><Button color="inherit">Donate</Button></Link>
               {/* <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link> */}
 
               {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
@@ -124,7 +126,7 @@ class App extends Component {
           <div className={classes.body}>
             <Switch>
               <Route path="/" exact component={() => <Home {...this.state} update={this.updateState} />} />
-              <Route path="/contact" exact component={() => <Contact {...this.state} update={this.updateState} />} />
+              <Route path="/donate" exact component={() => <Donate {...this.state} update={this.updateState} />} />
               <Route path="/login" exact component={() => <Login {...this.state} update={this.updateState} />} />
               <Route path="/initial-post" exact component={() => <InitialPost {...this.state} update={this.updateState} />} />
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
