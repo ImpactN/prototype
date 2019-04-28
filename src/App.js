@@ -113,7 +113,7 @@ class App extends Component {
 
               <a href="mailto:contact@impactn.global" className={classes.link}><Button color="inherit">Contact</Button></a>
               <Link to="/login" className={classes.link}><Button color="inherit">Log in</Button></Link>
-              <Link to="/create-project" className={classes.link}><Button color="inherit">Create a Project</Button></Link>
+              <Link to="/register" className={classes.link}><Button color="inherit">Register</Button></Link>
               <Link to="/donate" className={classes.link}><Button color="inherit">Donate</Button></Link>
               {/* <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link> */}
 
@@ -131,7 +131,7 @@ class App extends Component {
               <Route path="/initial-post" exact component={() => <InitialPost {...this.state} update={this.updateState} />} />
               <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
               <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
-              <Route path="/create-project" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
+              <Route path="/register" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
               <Route path="/projects/:id" exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />

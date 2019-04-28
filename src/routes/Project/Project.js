@@ -241,6 +241,7 @@ class Project extends React.Component {
                                     </div>
                                     </div>
                                 </div>}
+                                {!steem_user && <div>Please <a href="/login">Login</a> to be able to like or comment</div>}
                             </div>
                         </Grid>
 
