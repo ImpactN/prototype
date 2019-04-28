@@ -4,7 +4,7 @@ import {
   Route,
   Link,
   Switch
-} from "react-router-dom";
+} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 import { NoMatch } from './routes/NoMatch/NoMatch';
@@ -54,6 +54,12 @@ const styles = {
   },
   body: {
     marginTop: 64
+  }, 
+  betaLabel: {
+      color: '#03DAC6',
+       fontSize: '8px',
+       position: 'absolute',
+       left: '60px',
   }
 };
 
@@ -105,19 +111,22 @@ class App extends Component {
     return (
       <div className={classes.app}>
         <Router>
-          <AppBar position="fixed" className={classes.bar}>
+          <AppBar position='fixed' className={classes.bar}>
             <Toolbar>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
-                <Link to="/" className={classes.link}><Button color="inherit">Logo</Button></Link>
+              <Typography variant='h6' color='inherit' className={classes.grow}>
+                <Link to='/' className={classes.link}>
+              <Button color='inherit'>Logo</Button>
+                </Link>
+              <Button className={classes.betaLabel}>BETA</Button>
               </Typography>
 
-              <a href="mailto:contact@impactn.global" className={classes.link}><Button color="inherit">Contact</Button></a>
-              <Link to="/login" className={classes.link}><Button color="inherit">Log in</Button></Link>
-              <Link to="/register" className={classes.link}><Button color="inherit">Register</Button></Link>
-              <Link to="/donate" className={classes.link}><Button color="inherit">Donate</Button></Link>
-              {/* <Link to="/sponsor" className={classes.link}><Button color="inherit">Sponsor</Button></Link> */}
+              <a href='mailto:contact@impactn.global' className={classes.link}><Button color='inherit'>Contact</Button></a>
+              <Link to='/login' className={classes.link}><Button color='inherit'>Log in</Button></Link>
+              <Link to='/register' className={classes.link}><Button color='inherit'>Register</Button></Link>
+              <Link to='/donate' className={classes.link}><Button color='inherit'>Donate</Button></Link>
+              {/* <Link to='/sponsor' className={classes.link}><Button color='inherit'>Sponsor</Button></Link> */}
 
-              {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              {/* <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
                 <MenuIcon />
               </IconButton> */}
             </Toolbar>
@@ -125,35 +134,35 @@ class App extends Component {
 
           <div className={classes.body}>
             <Switch>
-              <Route path="/" exact component={() => <Home {...this.state} update={this.updateState} />} />
-              <Route path="/donate" exact component={() => <Donate {...this.state} update={this.updateState} />} />
-              <Route path="/login" exact component={() => <Login {...this.state} update={this.updateState} />} />
-              <Route path="/initial-post" exact component={() => <InitialPost {...this.state} update={this.updateState} />} />
-              <Route path="/impressum" exact component={() => <Impressum {...this.state} update={this.updateState} />} />
-              <Route path="/gdpr" exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
-              <Route path="/register" exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
-              <Route path="/projects/:id" exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
+              <Route path='/' exact component={() => <Home {...this.state} update={this.updateState} />} />
+              <Route path='/donate' exact component={() => <Donate {...this.state} update={this.updateState} />} />
+              <Route path='/login' exact component={() => <Login {...this.state} update={this.updateState} />} />
+              <Route path='/initial-post' exact component={() => <InitialPost {...this.state} update={this.updateState} />} />
+              <Route path='/impressum' exact component={() => <Impressum {...this.state} update={this.updateState} />} />
+              <Route path='/gdpr' exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
+              <Route path='/register' exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
+              <Route path='/projects/:id' exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />
             </Switch>
           </div>
 
-          <AppBar position="static" className={classes.bar}>
+          <AppBar position='static' className={classes.bar}>
             <Toolbar>
-              <Grid container item xs={6} justify="flex-start" alignItems="center" direction="row">
-                <Link to="/" className={classes.link}><Button color="inherit">Home</Button></Link>
-                <Link to="/impressum" className={classes.link}><Button color="inherit">Impressum</Button></Link>
-                <Link to="/gdpr" className={classes.link}><Button color="inherit">GDPR</Button></Link>
+              <Grid container item xs={6} justify='flex-start' alignItems='center' direction='row'>
+                <Link to='/' className={classes.link}><Button color='inherit'>Home</Button></Link>
+                <Link to='/impressum' className={classes.link}><Button color='inherit'>Impressum</Button></Link>
+                <Link to='/gdpr' className={classes.link}><Button color='inherit'>GDPR</Button></Link>
               </Grid>
               {/* 
-              <Grid container item xs={6} justify="flex-end" alignItems="center" direction="row">
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Grid container item xs={6} justify='flex-end' alignItems='center' direction='row'>
+                <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
                   <MenuIcon />
                 </IconButton>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
                   <MenuIcon />
                 </IconButton>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
                   <MenuIcon />
                 </IconButton>
               </Grid> */}
