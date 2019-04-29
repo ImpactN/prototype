@@ -99,7 +99,7 @@ class InitialPost extends React.Component {
                 <p>Here you can add your initial post</p>
                 <p>But you need to <a href="/login">Login</a> first if you are not logged in yet</p>
                 <div>
-                                                <h2>Add new update</h2>
+                                                <h2>Create Initial Post</h2>
                                                 <p>
                                                     <TextField 
                                                         variant="outlined"
