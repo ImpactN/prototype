@@ -87,7 +87,10 @@ const styles = {
         textAlign: 'center'
     },
     blockColor1: {
-
+        
+    },
+    blockColor2: {
+        backgroundColor: 'rgba(33, 116, 168, 0.6)'
     },
     blockTextP: {
         padding: '2.5%'
@@ -137,9 +140,9 @@ class Home extends React.Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <div className={`${classes.block} ${classes.blockColor1}`}>
+                        <div className={`${classes.block} ${classes.blockColor2}`} style={{ paddingBottom: '0' }}>
                             <Grid container direction="row" alignItems="center" justify="center">
-                                <Grid item xs={6} className={classes.blockTextP}>
+                                <Grid item xs={12} className={classes.blockTextP}>
                                     <h3 className={classes.title}>How Does It Work</h3>
 
                                     <h4>Getting in touch</h4>
@@ -159,15 +162,11 @@ class Home extends React.Component {
                                     <br/>
                                     <p>Good projects will receive an extra-funding in form of rewards with project assessment based on community evaluation.</p>
                                 </Grid>
-
-                                <Grid item xs={6} className={classes.blockTextImg}>
-                                    <img style={{ width: '60%' }} src={HowImg} alt="How" />
-                                </Grid>
                             </Grid>
                         </div>
                     </Grid>
 
-                    <div className={`${classes.block} ${classes.circleBlock1}`}>
+                    <div className={`${classes.block} ${classes.blockColor2}`}>
                         <Grid container direction="row">
                             <Grid container item xs={12} sm={12} md={3} alignItems="center" direction="column">
                                 <div className={classes.homeCircle} style={{ backgroundImage: `url(${BrushImg})` }}></div>
@@ -208,7 +207,7 @@ class Home extends React.Component {
                     </div>
 
                     <Grid item xs={12}>
-                        <div className={`${classes.block} ${classes.circleBlock2}`}>
+                        <div className={`${classes.block}`}>
                             <h3 className={classes.title}>
                                 For Whom?
                             </h3>
