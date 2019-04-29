@@ -211,13 +211,13 @@ class Project extends React.Component {
                                 <h3 className={classes.title}>
                                     {this.props.currentProject.title}
                                 </h3>
-
+                                <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} className="markdown-body" />
+                                   
                                 {steem_user && <div>
-                                    <ReactMarkdown source={this.props.currentProject.body} escapeHtml={true} className="markdown-body" />
-                                    <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
-                                        { !this.state.isVoteActionLoading ? 'Vote' : 'Voting...'}
+                                      <Button variant="contained" size="large" color="primary" className={classes.centeredButton} onClick={this.vote}>
+                                        { !this.state.isVoteActionLoading ? 'Like' : 'Liking...'}
                                     </Button>
-                                    <p>{this.state.isVoteDone && 'Voted...'}</p>
+                                    <p>{this.state.isVoteDone && 'Liked...'}</p>
                                     <div>
                                         <TextField 
                                             variant="outlined"
@@ -240,6 +240,7 @@ class Project extends React.Component {
                                         <p>{this.state.isCommentDone && 'Commented...'}</p>
                                     </div>
                                     </div>
+                                
                                 </div>}
                                 {!steem_user && <div>Please <a href="/login">Login</a> to be able to like or comment</div>}
                             </div>
@@ -278,7 +279,7 @@ class Project extends React.Component {
                                                             this.props.updatesProject.map((proj, index) => {
                                                                 return <Grid item xs={12} sm={12} md={4} key={index}>
                                                                     <div className={classes.homeProject}>
-                                                                        <div className={classes.link}><h3 className={classes.link}>{proj.title}</h3></div>
+                                                                        <div className={classes.link}><h3 className={classes.link}><a href={`/updates/${proj.post_id}`}>{proj.title}</a></h3></div>
                                                                         <ReactMarkdown source={bodyMore(proj.body)} escapeHtml={true} className="markdown-body" />
                                                                     </div>
                                                                 </Grid>
@@ -333,7 +334,7 @@ class Project extends React.Component {
                                                 return <b key={`${i}_${vote.voter}`}>{vote.voter}{i === arr.length - 1 ? '' : ', '}<br /></b>
                                             })
                                         }
-                                        {!voters.length && <p>No votes yet</p>}
+                                        {!voters.length && <p>No likes yet</p>}
                                     </TabContainer>
                                 </SwipeableViews>
                             </div>

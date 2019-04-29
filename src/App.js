@@ -27,6 +27,8 @@ import { Gdpr } from './routes/GDPR/Gdpr';
 import Grid from '@material-ui/core/Grid';
 import { getProjects, getProjectComments, getProjectUpdates } from './services/SteemApi';
 import InitialPost from './routes/InitialPost/InitialPost';
+import LogoImg from './logo_img.png'
+import UpdatePost from './routes/UpdatePost/UpdatePost';
 
 const styles = {
   app: {
@@ -60,6 +62,9 @@ const styles = {
        fontSize: '8px',
        position: 'absolute',
        left: '60px',
+  },
+  logo: {
+    width: '100px'
   }
 };
 
@@ -82,7 +87,6 @@ class App extends Component {
   }
 
   updateState = (state) => {
-    console.log('state', state)
     this.setState(state);
   }
 
@@ -115,7 +119,7 @@ class App extends Component {
             <Toolbar>
               <Typography variant='h6' color='inherit' className={classes.grow}>
                 <Link to='/' className={classes.link}>
-              <Button color='inherit'>Logo</Button>
+              <Button color='inherit'><img src={LogoImg} className={classes.logo} /></Button>
                 </Link>
               <Button className={classes.betaLabel}>BETA</Button>
               </Typography>
@@ -142,6 +146,7 @@ class App extends Component {
               <Route path='/gdpr' exact component={() => <Gdpr {...this.state} update={this.updateState} />} />
               <Route path='/register' exact component={() => <CreateProject {...this.state} update={this.updateState} />} />
               <Route path='/projects/:id' exact component={(route) => <Project {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
+              <Route path='/updates/:id' exact component={(route) => <UpdatePost {...this.state} getCurrentProject={this.getCurrentProject} update={this.updateState} id={route.match.params.id} />} />
 
               <Route component={NoMatch} />
             </Switch>
