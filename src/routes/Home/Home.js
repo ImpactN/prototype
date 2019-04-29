@@ -13,6 +13,7 @@ import BrushImg from './images/baseline-brush-24px.svg';
 import EuroImg from './images/baseline-euro_symbol-24px.svg';
 import FavoriteImg from './images/baseline-favorite-24px.svg';
 import GroupImg from './images/baseline-group_add-24px.svg';
+import GlobeImg from './images/globe.png';
 
 const styles = {
     root: {
@@ -93,6 +94,13 @@ const styles = {
     },
     blockTextImg: {
         textAlign: 'center'
+    },
+    imgBlock: {
+        width: '100%',
+        height: 500,
+        backgroundPosition: '50% 50%',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
     }
 };
 
@@ -103,15 +111,13 @@ class Home extends React.Component {
 
         return (
             <div className={classes.root}>
+                 <div className={classes.imgBlock} style={{ backgroundImage: `url(${GlobeImg})` }}></div>
+
                 <Grid container direction="column">
                     <Grid item xs={12}>
                         <div className={`${classes.block} ${classes.blockColor1}`}>
                             <Grid container direction="row" alignItems="center" justify="center">
-                                <Grid item xs={6} className={classes.blockTextImg}>
-                                    <img style={{ width: '65%' }} src={MissionImg} alt="Mission" />
-                                </Grid>
-
-                                <Grid item xs={6} className={classes.blockTextP}>
+                                <Grid item xs={12} className={classes.blockTextP}>
                                     <h3 className={classes.title}>
                                         Mission & Vision
                                     </h3>
