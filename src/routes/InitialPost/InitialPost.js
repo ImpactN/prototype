@@ -54,7 +54,7 @@ const styles = {
         overflow: 'scroll'
     },
     centeredButton: {
-        marginTop: 50
+        marginTop: 20
     },
     btnLink: {
         textDecoration: 'none',
@@ -100,17 +100,17 @@ class InitialPost extends React.Component {
                 <p>But you need to <a href="/login">Login</a> first if you are not logged in yet</p>
                 <div>
                                                 <h2>Add new update</h2>
-                                                <p>
+                                                <div className={classes.centeredButton}>
                                                     <TextField 
                                                         variant="outlined"
                                                         type="textarea"
                                                         label="Title"
                                                         id="noter-body-area-new-title"
-                                                        value={this.state.newBody}
+                                                        defaultValue={this.state.newTitle}
                                                         className={`${classes.responsive}`}
-                                                        onChange={(e) => this.addNewBody(e.target.value)} />
-                                                        </p>
-                                                <p>
+                                                        onChange={(e) => this.setState({ newTitle: e.target.value })} />
+                                                        </div>
+                                                <div className={classes.centeredButton}>
                                                     <TextField 
                                                         variant="outlined"
                                                         multiline
@@ -118,11 +118,20 @@ class InitialPost extends React.Component {
                                                         type="textarea"
                                                         label="Text"
                                                         id="noter-body-area-new-body"
-                                                        value={this.state.newBody}
+                                                        defaultValue={this.state.newBody}
                                                         className={`${classes.responsive}`}
-                                                        onChange={(e) => this.addNewBody(e.target.value)} />
-                                                </p>
-                                                <Button color="primary" variant="contained" onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</Button>
+                                                        onChange={(e) => this.setState({ newBody: e.target.value })} />
+                                                </div>
+                                                <div className={classes.centeredButton}><Button color="primary" variant="contained" onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</Button></div><br />
+                                                <span>Every project page starts with a story, explaining potential cocreators what it is about. These questions may help you to set up a good start for your project page.<br /><br />
+ What do you want to change? <br />Which problem are you solving? <br />Who are the beneficiaries of your project? Please share the story behind your project.
+ What is your desired impact? <br />What will have changed if you are successful? <br />How could you measure/visualise success of your project?
+ What are your main activities? <br />Who is already engaging in the team? <br />Describe yourself and the team a little bit.
+ Who are your partners? <br />With whom do you already collaborate?<br />
+ When do you want to start your project?<br />
+ Which financial resources do you rely on? Donations? Revenues? A mix of both? <br />What are your needs?<br />
+ Please leave some contact data, so the community can get in touch.<br /><br /><br />
+ </span>
                                             </div>
             </div>
         );

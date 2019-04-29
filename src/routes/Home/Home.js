@@ -6,9 +6,13 @@ import Carousel from '../../common/Carousel';
 import { Link } from "react-router-dom";
 import MissionImg from './images/missino.png';
 import HowImg from './images/how.jpg';
-import PortraitImg from './images/portrait.jpg';
 import BlockChainImg from './images/block.jpg';
 import EngageImg from './images/engage.jpg';
+import PortraitImg from './images/portrait.jpg';
+import BrushImg from './images/baseline-brush-24px.svg';
+import EuroImg from './images/baseline-euro_symbol-24px.svg';
+import FavoriteImg from './images/baseline-favorite-24px.svg';
+import GroupImg from './images/baseline-group_add-24px.svg';
 
 const styles = {
     root: {
@@ -47,11 +51,13 @@ const styles = {
         backgroundColor: 'rgba(251, 195, 10, 0.75)'
     },
     homeCircle: {
-        borderRadius: '50%',
-        border: '1px dashed #3f51b5',
-        width: 100,
-        height: 125,
-        marginTop: 75
+        width: 50,
+        height: 50,
+        position: 'relative',
+        float: 'left',
+        backgroundPosition: '50% 50%',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
     },
     homeCircleText: {
         padding: '0 10%'
@@ -157,26 +163,26 @@ class Home extends React.Component {
 
                     <div className={`${classes.block} ${classes.circleBlock1}`}>
                         <Grid container direction="row">
-                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                            <Grid container item xs={12} sm={12} md={3} alignItems="center" direction="column">
+                                <div className={classes.homeCircle} style={{ backgroundImage: `url(${BrushImg})` }}></div>
                                 <h3>Create project</h3>
                                 <p className={classes.homeCircleText}>
-                                    You have a project idea and look for talents or funds? Please <Link to={`/create-project`}>register</Link> a project account. Describe your project story by 
+                                    You have a project idea and look for talents or funds? Please <Link to={`/register`}>register</Link> a project account. Describe your project story by 
                                     answering some questions, that help you tell your project story. Publish it and ask the community to engage in your project.
                                 </p>
                             </Grid>
 
-                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                            <Grid container item xs={12} sm={12} md={3} alignItems="center" direction="column">
+                                <div className={classes.homeCircle} style={{ backgroundImage: `url(${GroupImg})` }}></div>
                                 <h3>Find co-creators</h3>
                                 <p className={classes.homeCircleText}>
                                     You’d like to invite people to co-create your project or idea? What fields of knowledge are you looking for? 
-                                    Do you need volunteers for specific tasks? Write an <Link to={`/create-project`}>update</Link> on your project story and describe your needs. 
+                                    Do you need volunteers for specific tasks? Write an <Link to={`/register`}>update</Link> on your project story and describe your needs. 
                                 </p>
                             </Grid>
 
-                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                            <Grid container item xs={12} sm={12} md={3} alignItems="center" direction="column">
+                                <div className={classes.homeCircle} style={{ backgroundImage: `url(${EuroImg})` }}></div>
                                 <h3>Reward social impact</h3>
                                 <p className={classes.homeCircleText}>
                                     You want impactful projects to be visible? You want them to receive a little extra funding? Look through the project database and “like” 
@@ -184,8 +190,8 @@ class Home extends React.Component {
                                 </p>
                             </Grid>
 
-                            <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
+                            <Grid container item xs={12} sm={12} md={3} alignItems="center" direction="column">
+                                <div className={classes.homeCircle} style={{ backgroundImage: `url(${FavoriteImg})` }}></div>
                                 <h3>Fund/Invest projects</h3>
                                 <p className={classes.homeCircleText}>
                                     You are looking for a cheap and fast means of globally funding projects? Find your favorite project in our database. 
@@ -203,34 +209,34 @@ class Home extends React.Component {
 
                             <Grid container direction="row">
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Donors/philanthropists</h3>
                                     <p className={classes.homeCircleText}>
-                                        Some explanation
+                                    You are looking for impactful projects? Community evaluation will guide you to the right ones. 
+                                    When you’ve made your choice, please follow the steps described in "fund projects"
                                     </p>
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Change-influencers</h3>
                                     <p className={classes.homeCircleText}>
-                                        Some explanation
+                                    You want to engage for United Nations’ Global Goals? You want to be inspired? 
+                                    Search our project database and get in touch with your favorite project. Or start your own project.
                                     </p>
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Investors</h3>
                                     <p className={classes.homeCircleText}>
-                                        Some explanation
+                                    You are looking for crowd investing in social impact? We plan to realise this together with 
+                                    experienced impact investors after successful implementation of funding and evaluation tools.
                                     </p>
                                 </Grid>
 
                                 <Grid container item xs={12} sm={12} md={3} justify="center" alignItems="center" direction="column">
-                                    <img className={classes.homeCircle} src={PortraitImg} alt="Portrait" />
                                     <h3>Companies</h3>
                                     <p className={classes.homeCircleText}>
-                                        Some explanation
+                                    You want to engage for United Nations’ Global Goals? Setting up a contest, boosting rewards for social impact, advertising … there are plenty of possibilities.
+                                    Please get in touch, so we can find the right solution together with you.
                                     </p>
                                 </Grid>
                             </Grid>
@@ -242,6 +248,8 @@ class Home extends React.Component {
                             <h3 className={classes.title}>
                                 Projects feed
                             </h3>
+
+                            <h4>By clicking on a project post you will be able to learn more about the project: its initial story, updates and names of co-creators and backers.</h4>
 
                             {this.props.projects.length > 0
                                 ? <Carousel elements={carouselElements} perPage={3} />
@@ -280,13 +288,10 @@ class Home extends React.Component {
                                     </h3>
 
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                        It has survived not only five centuries, but also the leap into electronic typesetting,
-                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                        Aldus PageMaker including versions of Lorem Ipsum.
+                                    Why do we use blockchain? Blockchain is a great tool for seamless, fast and cheap transfer of funds. 
+                                    Furthermore, a blockchain provides a transparent and unforgeable database, enabling trust between distant parties not knowing each other. 
+                                    Additionally we apply a blockchain-based reward mechanism as motivational tool. 
+                                    Finally, the chosen blockchain is eco-friendly and uses very little energy.
                                     </p>
                                 </Grid>
                             </Grid>
@@ -298,18 +303,23 @@ class Home extends React.Component {
                             <Grid container direction="row" alignItems="center" justify="center">
                                 <Grid item xs={6} className={classes.blockTextP}>
                                     <h3 className={classes.title}>
-                                        How Does It Work
+                                        Engage
                                     </h3>
 
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                        It has survived not only five centuries, but also the leap into electronic typesetting,
-                                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                        Aldus PageMaker including versions of Lorem Ipsum.
+                                    ImpactN is a community-based enterprise. This refers to co-creating and evaluating projects as well 
+                                    as to setting up the platform itself. We are permanently looking for partners and volunteers to spread 
+                                    the word, to approach projects or to engage in the open source development of the platform.
+                                    If you are interested please get in contact.
                                     </p>
+
+                                    <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
+                                        <a href="mailto:contact@impactn.global" className={classes.link}>
+                                            <Button variant="contained" size="large" color="secondary" className={classes.btnLink}>
+                                                Become volunteer
+                                            </Button>
+                                        </a>
+                                    </Grid>
                                 </Grid>
 
                                 <Grid item xs={6} className={classes.blockTextImg}>

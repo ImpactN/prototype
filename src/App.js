@@ -59,9 +59,9 @@ const styles = {
   }, 
   betaLabel: {
       color: '#03DAC6',
-       fontSize: '8px',
-       position: 'absolute',
-       left: '60px',
+      fontSize: '8px',
+      position: 'absolute',
+      left: '60px',
   },
   logo: {
     width: '100px'

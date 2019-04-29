@@ -289,7 +289,7 @@ class Project extends React.Component {
 
                                         {steem_user === this.props.currentProject.author &&
                                             <div>
-                                                <h2>Add new update</h2>
+                                                <h2>Add a post on updates to your project</h2>
                                                 <p>
                                                     <TextField 
                                                         variant="outlined"
@@ -318,6 +318,8 @@ class Project extends React.Component {
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
+                                        <p>Co-creators support projects through comments and/or funding. More functions to be added.<br/></p>
+
                                         {comments.length && 
                                             comments.map((cm, i, arr) => {
                                                 return <b key={`${i}_${cm.author}`}>
@@ -329,6 +331,7 @@ class Project extends React.Component {
                                     </TabContainer>
 
                                     <TabContainer dir={'ltr'}>
+                                    <p>Backers support projects through likes. More functions to be added.<br/></p>
                                         {
                                             voters.length && voters.map((vote, i, arr) => {
                                                 return <b key={`${i}_${vote.voter}`}>{vote.voter}{i === arr.length - 1 ? '' : ', '}<br /></b>

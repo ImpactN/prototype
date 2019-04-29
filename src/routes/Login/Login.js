@@ -38,11 +38,18 @@ class Login extends PureComponent{
     render () {
         return (
             <div className={this.props.classes.block}>
-            {!isLoggedIn && <Button color="primary" variant="contained" href={loginURL}>Login</Button>}
-            {isLoggedIn && <div>
-              <p>Account: <b>{steem_user}</b></p>
-              <Button onClick={logOut} color="primary" variant="contained">Logout</Button>
+
+            {!isLoggedIn && <div>
+                  <p>Login gives you the possibility to like and comment on project posts. Through liking you distribute a reward to a project and earn some small ones yourself
+As a project owner you can create update posts when logged in. If you haven’t registered yet, please register.
+Please have your active key at hand to login. We recommend not to use your owner key or master password. Owner key or mater password should only be used to change your passwords.</p>
+                  <Button color="primary" variant="contained" href={loginURL}>Login</Button>
               </div>}
+            {isLoggedIn && <div>
+              <p>You are already logged in as <b>{steem_user}</b>. Do you want to logout?</p>
+                  <Button onClick={logOut} color="primary" variant="contained">Logout</Button>
+              </div>}
+
             </div>
         );
             }
