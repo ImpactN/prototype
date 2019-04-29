@@ -249,7 +249,7 @@ class Home extends React.Component {
                             }
 
                             <Grid container item xs={12} justify="center" alignItems="center" direction="column" className={classes.centeredButton}>
-                                <Link to={`/create-project`} className={classes.link}>
+                                <Link to={`/register`} className={classes.link}>
                                     <Button variant="contained" size="large" color="primary" className={classes.btnLink}>
                                         Create next project
                                     </Button>
