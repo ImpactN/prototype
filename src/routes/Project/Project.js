@@ -150,14 +150,6 @@ class Project extends React.Component {
         })
     }
 
-    addNewTitle = (newTitle) => {
-        this.setState({ newTitle })
-    }
-
-    addNewBody = (newBody) => {
-        this.setState({ newBody })
-    }
-
     render() {
         const { classes } = this.props;
         let voters = [];
@@ -296,9 +288,9 @@ class Project extends React.Component {
                                                         type="textarea"
                                                         label="Title"
                                                         id="noter-body-area-new-title"
-                                                        value={this.state.newBody}
+                                                        value={this.state.newTitle}
                                                         className={`${classes.responsive}`}
-                                                        onChange={(e) => this.addNewBody(e.target.value)} />
+                                                        onChange={(e) => this.setState({ newTitle: e.target.value })} />
                                                         </p>
                                                 <p>
                                                     <TextField 
@@ -310,7 +302,7 @@ class Project extends React.Component {
                                                         id="noter-body-area-new-body"
                                                         value={this.state.newBody}
                                                         className={`${classes.responsive}`}
-                                                        onChange={(e) => this.addNewBody(e.target.value)} />
+                                                        onChange={(e) => this.setState({ newBody: e.target.value })} />
                                                 </p>
                                                 <Button color="primary" variant="contained" onClick={this.commentSubmit}>{!this.state.isActionLoading ? 'Send' : 'Sending...'}</Button>
                                             </div>
