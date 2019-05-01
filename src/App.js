@@ -93,15 +93,17 @@ class App extends Component {
   getCurrentProject = (projectId) => {
     if (this.state.projects.length > 0) {
       const proj = this.state.projects.find(proj => proj.post_id === +projectId);
-      getProjectComments(proj.permlink).then(comments => {
-        getProjectUpdates(proj.author).then(updatesProject => {
-          this.setState({
-            currentProject: proj,
-            comments,
-            updatesProject
-          });
+      if (proj) {
+        getProjectComments(proj.permlink).then(comments => {
+          getProjectUpdates(proj.author).then(updatesProject => {
+            this.setState({
+              currentProject: proj,
+              comments,
+              updatesProject
+            });
+          })
         })
-      })
+      } 
     } else {
       getProjects().then(projects => {
         this.setState({ projects });
